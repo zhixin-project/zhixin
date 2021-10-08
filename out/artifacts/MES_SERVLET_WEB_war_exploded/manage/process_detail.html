@@ -1,0 +1,38 @@
+<div class="layuimini-main">
+
+
+    <table class="layui-hide" id="processTableId" lay-filter="currentTableFilter"></table>
+
+</div>
+
+<script>
+    var cuur_id = layui.data('curr_id');
+    var id=(cuur_id.id);
+    layui.use(['form', 'table','miniPage','element'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table,
+            miniPage = layui.miniPage;
+
+        table.render({
+            elem: '#processTableId',
+            url: '/GetProcessesDetails?id='+id,
+            cols: [[
+                {field: 'id', title: 'ID', },
+                {field: 'name',  title: '工艺名称'},
+                {field: 'operator', title: '操作员'},
+                {field: 'status', title: '完成情况', sort: true,
+                    templet: function (d) {
+                        if (d.status ==='0'){
+                            return '未完成'
+                        }else if(d.status ==='1'){
+                            return '已完成'
+                        }}},
+                {field: 'finished_time', title: '完成时间'},
+            ]],
+            limits: [10, 15, 20, 25, 50, 100],
+            limit: 15,
+            page: false,
+            skin: 'line'
+        });})
+</script>

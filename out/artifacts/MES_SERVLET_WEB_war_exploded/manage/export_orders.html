@@ -1,0 +1,102 @@
+<div class="layuimini-container layuimini-page-anim">
+    <div class="layuimini-main">
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button name="refresh" id="refresh" class="layui-btn layui-btn-normal layui-btn-sm" lay-event="refresh">
+                    刷新
+                </button>
+                <button name="export" id="export" class="layui-btn layui-btn-normal layui-btn-sm" lay-event="export">
+                    导出
+                </button>
+            </div>
+        </script>
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+    </div>
+</div>
+
+<script>
+    layui.use(['form', 'table','miniPage','element','excel'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table,
+            miniPage = layui.miniPage,
+            excel = layui.excel;
+        table.render({
+            title: '送货单导出',
+            elem: '#currentTableId',
+            url: '/ExportOrders',
+            toolbar: '#toolbarDemo',
+            initSort: {field:'finish_time', type:'desc'},
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            cols: [[
+                {type:'checkbox'},
+                {field: 'id', width: 60, title: 'ID', sort: true},
+                {field: 'required_time', width: 120, title: '交付时间', sort: true},
+                {field: 'finish_time', width: 240, title: '完成时间', sort: true},
+                {field: 'customer', width: 120, title: '客户', sort: true},
+                {field: 'standard', width: 120, title: '标准', sort: true},
+                {field: 'name', width: 120, title: '名称', sort: true},
+                {field: 'size', width: 120, title: '规格', sort: true},
+                {field: 'sjck', width: 120, title: '送货数量', sort: true},
+                {field: 'custom_id', width: 200, title: '采购单号', sort: true},
+            ]],
+            limits: [10, 15, 20, 25, 50, 100, 1000],
+            limit: 100,
+            page: true,
+            skin: 'line'
+        });
+        table.on('toolbar(currentTableFilter)', function (obj) {
+            if (obj.event === 'refresh') {   // 监听刷新操作
+                table.reload('currentTableId');
+            }else if(obj.event ==='export'){
+                var selectData;
+
+                selectData = layui.table.checkStatus('currentTableId').data;
+                selectData.unshift({
+                    standard: '标准',
+                    name: '名称',
+                    size: '规格',
+                    packs:'箱数',
+                    sjck:'送货数量',
+                    custom_id:'采购单号'
+            });
+                var data = excel.filterExportData(selectData, [
+                    'standard',
+                    'name',
+                    'size',
+                    'sjck',
+                    'packs',
+                    'custom_id'
+                ]);
+                excel.setExportCellStyle(data,'A1:F'+data.length,{
+                    s:{
+                        fill: { patternType:"solid", bgColor: { indexed: 64 }, fgColor: { rgb: "FFFFFF" } },
+                        border:{
+                            top:{ style: "thin" },
+                            bottom:{ style: "thin"},
+                            left:{ style: "thin"},
+                            right:{ style: "thin"}
+                        },
+                        alignment: {
+                            horizontal: 'center',
+                            vertical: 'center'
+                        }
+                    }
+                })
+
+                excel.exportExcel({
+                    sheet1: data
+                }, '送货单导出.xlsx', 'xlsx');
+
+            }
+        });
+    });
+
+
+
+</script>

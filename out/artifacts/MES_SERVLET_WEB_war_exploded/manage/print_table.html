@@ -1,0 +1,679 @@
+<html>
+
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <script src="../lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+    <script src="../lib/qrcode.js"></script>
+
+    <script>
+        //获取url中的参数
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]);
+            return null; //返回参数值
+        }
+
+    </script>
+    <script type="text/javascript">
+        function cancel() {
+            window.close();
+        }
+
+        function f() {
+            window.print();
+        }
+
+        $(document).ready(function () {
+            $.getJSON("/PrintOrders?id=" + getUrlParam('id'), function (result) {
+                $.each(result, function (i, field) {
+                    if (i === "buxiadan" && field === '1') {
+                        $("p#bxd").append(" 本单为补下单 ")
+                    } else if (i === "bxdly") {
+                        $("p#bxd").append(" 补下单理由:" + field)
+                    } else $("#" + i).append(field + " ");
+
+                });
+            });
+            new QRCode(document.getElementById("qrcode"), {
+                text: getUrlParam('id'),
+                width: 100,
+                height: 100,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            document.getElementsByTagName('body')[0].style.zoom = 0.75;
+            setTimeout(f, 1000);
+            setTimeout(cancel, 1000);
+        });
+    </script>
+    <style>
+        #qrcode {
+            width: 100px;
+            height: 100px;
+            margin-top: 0px;
+        }
+    </style>
+
+</head>
+
+<body lang=ZH-CN style='tab-interval:21.0pt;word-wrap:break-word;text-justify-trim:
+punctuation'>
+
+<div class=WordSection1 style='layout-grid:15.6pt'>
+    <div style="margin: auto;position: fixed">
+
+        <p class=MsoNormal align=center style='text-align:center'><b><span
+                style='font-size:16.0pt;mso-bidi-font-size:18.0pt;font-family:宋体'>嘉兴致信精密零部件股份有限公司产品质检跟踪单卡<span
+                lang=ZH-CN></span></span></b></p>
+        <table align="center" class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+               style='table-layout:fixed; border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
+ mso-yfti-tbllook:1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+            <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+                <td width=93 valign=top style='width:69.45pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='mso-bidi-font-size:10.5pt;font-family:宋体'>订单号<span lang=ZH-CN></span></span>
+                    </p>
+                </td>
+                <td width=100 colspan=2 valign=top style='width:80pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='mso-bidi-font-size:10.5pt;font-family:宋体'>交货期<span lang=ZH-CN></span></span>
+                    </p>
+                </td>
+                <td width=107 colspan=2 valign=top style='width:80.55pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='mso-bidi-font-size:10.5pt;font-family:宋体'>客户<span lang=ZH-CN></span></span>
+                    </p>
+                </td>
+                <td width=104 valign=top style='width:77.95pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='mso-bidi-font-size:10.5pt;font-family:宋体'>型号<span lang=ZH-CN></span></span>
+                    </p>
+                </td>
+                <td width=113 colspan=2 valign=top style='width:3.0cm;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='mso-bidi-font-size:10.5pt;font-family:宋体'>规格<span lang=ZH-CN></span></span>
+                    </p>
+                </td>
+                <td width=43 valign=top style='width:32.3pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='mso-bidi-font-size:10.5pt;font-family:宋体'>数量<span lang=ZH-CN></span></span>
+                    </p>
+                </td>
+            </tr>
+            <tr style='mso-yfti-irow:1;height:30.0pt'>
+                <td width=93 valign=top style='width:69.45pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:30.0pt'>
+                    <p id='custom_id' class=MsoNormal><span lang=ZH-CN style='mso-bidi-font-size:10.5pt;
+  font-family:宋体'></span></p>
+                </td>
+                <td width=93 colspan=2 valign=top style='width:69.5pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:30.0pt'>
+                    <p id='required_time' class=MsoNormal></p>
+                </td>
+                <td width=107 colspan=2 valign=top style='width:80.55pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:30.0pt'>
+                    <p id='customer' class=MsoNormal><span lang=ZH-CN style='mso-bidi-font-size:10.5pt;
+  font-family:宋体'></span></p>
+                </td>
+                <td width=104 valign=top style='width:77.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:30.0pt'>
+                    <p id='name' class=MsoNormal><span lang=ZH-CN style='mso-bidi-font-size:10.5pt;
+  font-family:宋体'></span></p>
+                </td>
+                <td width=113 colspan=2 valign=top style='width:3.0cm;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:30.0pt'>
+                    <p id='size' class=MsoNormal><span lang=ZH-CN style='mso-bidi-font-size:10.5pt;
+  font-family:宋体'></span></p>
+                </td>
+                <td width=43 valign=top style='width:32.3pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:30.0pt'>
+                    <p id='amount' class=MsoNormal><span lang=ZH-CN style='mso-bidi-font-size:10.5pt;
+  font-family:宋体'></span></p>
+                </td>
+            </tr>
+            <tr style='mso-yfti-irow:2'>
+                <td width=138 colspan=2 valign=top style='width:103.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='mso-bidi-font-size:10.5pt;font-family:宋体'>标准<span lang=ZH-CN></span></span>
+                    </p>
+                </td>
+                <td width=138 colspan=2 valign=top style='width:103.7pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='mso-bidi-font-size:10.5pt;font-family:宋体'>毛板<span lang=ZH-CN></span></span>
+                    </p>
+                </td>
+                <td width=138 colspan=3 valign=top style='width:103.7pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='mso-bidi-font-size:10.5pt;font-family:宋体'>数量<span lang=ZH-CN></span></span>
+                    </p>
+                </td>
+                <td width=138 colspan=2 valign=top style='width:103.7pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='mso-bidi-font-size:10.5pt;font-family:宋体'>投料<span lang=ZH-CN></span></span>
+                    </p>
+                </td>
+            </tr>
+            <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+                <td width=138 colspan=2 valign=top style='width:103.7pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p id='standard' class=MsoNormal><span lang=ZH-CN style='mso-bidi-font-size:10.5pt;
+  font-family:宋体'></span></p>
+                </td>
+                <td width=138 colspan=2 valign=top style='width:103.7pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p id="maoban" class=MsoNormal><span lang=ZH-CN style='mso-bidi-font-size:10.5pt;
+  font-family:宋体'></span></p>
+                </td>
+                <td width=138 colspan=3 valign=top style='width:103.7pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p id='mbsl' class=MsoNormal><span lang=ZH-CN style='mso-bidi-font-size:10.5pt;
+  font-family:宋体'></span></p>
+                </td>
+                <td width=138 colspan=2 valign=top style='width:103.7pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p id='touliao' class=MsoNormal><span lang=ZH-CN style='mso-bidi-font-size:10.5pt;
+  font-family:宋体'></span></p>
+                </td>
+            </tr>
+            <![if !supportMisalignedColumns]>
+            <tr height=0>
+                <td width=93 style='border:none'></td>
+                <td width=46 style='border:none'></td>
+                <td width=47 style='border:none'></td>
+                <td width=91 style='border:none'></td>
+                <td width=16 style='border:none'></td>
+                <td width=104 style='border:none'></td>
+                <td width=18 style='border:none'></td>
+                <td width=95 style='border:none'></td>
+                <td width=43 style='border:none'></td>
+            </tr>
+            <![endif]>
+        </table>
+
+        <p class=MsoNormal><span lang=ZH-CN style='mso-bidi-font-size:10.5pt;
+font-family:宋体'></span></p>
+
+        <table align="center" class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+               style='border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
+ mso-yfti-tbllook:1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+            <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+                <td width=85 valign=top style='width:63.55pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal><span style='mso-bidi-font-size:10.5pt;font-family:宋体'>工序：<span
+                            lang=ZH-CN></span></span></p>
+                </td>
+                <td width=550 valign=top style='width:351.25pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p id='gx' class=MsoNormal><span lang=ZH-CN style='mso-bidi-font-size:10.5pt;
+  font-family:宋体'></span></p>
+                </td>
+            </tr>
+        </table>
+
+        <p class=MsoNormal><span lang=ZH-CN style='mso-bidi-font-size:10.5pt;
+font-family:宋体'></span></p>
+
+        <table align="center" class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+               style='border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
+ mso-yfti-tbllook:1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+            <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+                <td width=47 style='width:35.2pt;border:solid windowtext 1.0pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><b><span
+                            style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>序号<span
+                            lang=ZH-CN></span></span></b></p>
+                </td>
+                <td width=76 style='width:2.0cm;border:solid windowtext 1.0pt;border-left:
+  none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><b><span
+                            style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>加工工序<span
+                            lang=ZH-CN></span></span></b></p>
+                </td>
+                <td width=292 colspan=2 style='width:219.2pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><b><span
+                            style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>技术要求<span
+                            lang=ZH-CN></span></span></b></p>
+                </td>
+                <td rowspan="4" width=138 style='width:103.7pt;border:solid windowtext 1.0pt;border-left:
+  none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p id="bxd" class=MsoNormal align=center style='text-align:center'><b><span
+                            style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'><span
+                            lang=ZH-CN></span></span></b></p>
+                </td>
+            </tr>
+            <tr style='mso-yfti-irow:1;height:22px'>
+                <td width=47 style='width:35.2pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span lang=ZH-CN
+                                                                                    style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>1</span>
+                    </p>
+                </td>
+                <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>剪板<span
+                            lang=ZH-CN></span></span></p>
+                </td>
+                <td width=292 colspan=2 valign=top style='width:219.2pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p id='jianban' class=MsoNormal><span lang=ZH-CN style='font-size:11.0pt;mso-bidi-font-size:
+  12.0pt;font-family:宋体'></span></p>
+                </td>
+
+            </tr>
+
+            <tr style='mso-yfti-irow:4;height:22px'>
+                <td width=47 style='width:35.2pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span lang=ZH-CN
+                                                                                    style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>4</span>
+                    </p>
+                </td>
+                <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>冲<span
+                            lang=ZH-CN>(</span>通<span lang=ZH-CN>)</span>孔<span lang=ZH-CN></span></span></p>
+                </td>
+                <td width=292 colspan=2 valign=top style='width:219.2pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p id='chongkong' class=MsoNormal><span lang=ZH-CN style='font-size:11.0pt;mso-bidi-font-size:
+  12.0pt;font-family:宋体'></span></p>
+                </td>
+
+            </tr>
+            <tr style='mso-yfti-irow:5;height:22px'>
+                <td width=47 style='width:35.2pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span lang=ZH-CN
+                                                                                    style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>5</span>
+                    </p>
+                </td>
+                <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>打字<span
+                            lang=ZH-CN></span></span></p>
+                </td>
+                <td width=292 colspan=2 valign=top style='width:219.2pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p id='dazi' class=MsoNormal><span lang=ZH-CN style='font-size:11.0pt;mso-bidi-font-size:
+  12.0pt;font-family:宋体'></span></p>
+                </td>
+
+            </tr>
+            <tr style='mso-yfti-irow:6;;height:22px'>
+                <td width=47 rowspan=6 style='width:35.2pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p class=MsoNormal align=center style='text-align:center'><span lang=ZH-CN
+                                                                                    style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>6</span>
+                    </p>
+                </td>
+                <td width=76 rowspan=6 style='width:2.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>整形<span
+                            lang=ZH-CN></span></span></p>
+                </td>
+                <td width=146 rowspan=2 style='width:109.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p id='zx_hg' class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+  font-family:宋体'>环<span class=GramE>规</span>：<span lang=ZH-CN></span></span></p>
+                </td>
+                <td width=146 valign=top style='width:109.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p id='zx_hg_t' class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+  font-family:宋体'>通<span lang=ZH-CN></span></span></p>
+                </td>
+                <td width=138 rowspan=6 valign=top style='width:103.7pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p class=MsoNormal><span id="caizhi" lang=ZH-CN style='font-size:20.0pt;mso-bidi-font-size:
+  12.0pt;font-family:宋体'>材质:</span></p>
+                </td>
+            </tr>
+            <tr style='mso-yfti-irow:7;height:22px'>
+                <td width=146 valign=top style='width:109.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p id='zx_hg_z' class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+  font-family:宋体'>止<span lang=ZH-CN></span></span></p>
+                </td>
+            </tr>
+            <tr style='mso-yfti-irow:8;height:22px'>
+                <td width=146 valign=top style='width:109.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p id='zx_zk' class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+  font-family:宋体'>座孔：<span lang=ZH-CN></span></span></p>
+                </td>
+                <td width=146 valign=top style='width:109.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p class=MsoNormal><span lang=ZH-CN style='font-size:11.0pt;mso-bidi-font-size:
+  12.0pt;font-family:宋体'></span></p>
+                </td>
+            </tr>
+            <tr style='mso-yfti-irow:9;height:22px'>
+                <td width=146 rowspan=2 style='width:109.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p id='zx_sg' class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+  font-family:宋体'>塞规：<span lang=ZH-CN></span></span></p>
+                </td>
+                <td width=146 valign=top style='width:109.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p id='zx_sg_t' class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+  font-family:宋体'>通<span lang=ZH-CN></span></span></p>
+                </td>
+            </tr>
+            <tr style='mso-yfti-irow:10;height:22px'>
+                <td width=146 valign=top style='width:109.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p id='zx_sg_z' class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+  font-family:宋体'>止<span lang=ZH-CN></span></span></p>
+                </td>
+            </tr>
+            <tr style='mso-yfti-irow:11;height:22px'>
+                <td width=146 valign=top style='width:109.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p id='zx_bh' class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+  font-family:宋体'>壁厚：<span lang=ZH-CN></span></span></p>
+                </td>
+                <td width=146 valign=top style='width:109.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p class=MsoNormal><span lang=ZH-CN style='font-size:11.0pt;mso-bidi-font-size:
+  12.0pt;font-family:宋体'></span></p>
+                </td>
+            </tr>
+            <tr style='mso-yfti-irow:12;height:22px'>
+                <td width=47 rowspan=4 style='width:35.2pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p class=MsoNormal align=center style='text-align:center'><span lang=ZH-CN
+                                                                                    style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>7</span>
+                    </p>
+                </td>
+                <td width=76 rowspan=4 style='width:2.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p class=MsoNormal align=center style='text-align: center'><span
+                    style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>倒角<span
+                    lang=ZH-CN></span></span></p>
+                </td>
+                <td width=292 colspan=2 valign=top style='width:219.2pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p id=' dj_wj
+                ' class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+  font-family:宋体'>外角：<span lang=ZH-CN></span></span></p>
+                </td>
+                <td width=138 rowspan=4 valign=top style='width:103.7pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p class=MsoNormal><span id="houchuli" lang=ZH-CN style='
+                    font-size:20.0pt;mso-bidi-font-size:12.0pt;font-family:宋体
+                '>后处理:</span></p>
+                </td>
+            </tr>
+            <tr style='mso-yfti-irow:13;height:22px'>
+                <td width=292 colspan=2 valign=top style='width:219.2pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p id='dj_nj' class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+  font-family:宋体'>内角：<span lang=ZH-CN></span></span></p>
+                </td>
+            </tr>
+            <tr style='mso-yfti-irow:14;height:22px'>
+                <td width=146 rowspan=2 style='width:109.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
+                    <p id='dj_gd' class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+  font-family:宋体'>高度：<span lang=ZH-CN></span></span></p>
+                </td>
+                <td width=146 valign=top style='width:109.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:15pt'>
+                    <p id='dj_gd_t' class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+  font-family:宋体'><span lang=ZH-CN></span></span></p>
+                </td>
+            </tr>
+            <tr style='mso-yfti-irow:15;height:22px'>
+                <td width=146 valign=top style='width:109.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:15pt'>
+                    <p id='dj_gd_z' class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+  font-family:宋体'><span lang=ZH-CN></span></span></p>
+                </td>
+            </tr>
+            <tr style='mso-yfti-irow:16'>
+                <td width=47 style='width:35.2pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span lang=ZH-CN
+                                                                                    style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>8</span>
+                    </p>
+                </td>
+                <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>开口缝<span
+                            lang=ZH-CN></span></span></p>
+                </td>
+                <td width=292 colspan=2 valign=top style='width:219.2pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p id='kkf' class=MsoNormal><span lang=ZH-CN style='font-size:11.0pt;mso-bidi-font-size:
+  12.0pt;font-family:宋体'></span></p>
+                </td>
+                <td rowspan="5" width=138 valign=top style='width:103.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <div id="qrcode"></div>
+
+                </td>
+            </tr>
+            <tr style='mso-yfti-irow:17'>
+                <td width=47 style='width:35.2pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span lang=ZH-CN
+                                                                                    style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>9</span>
+                    </p>
+                </td>
+                <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>翻边<span
+                            lang=ZH-CN></span></span></p>
+                </td>
+                <td width=292 colspan=2 valign=top style='width:219.2pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p id='fanbian' class=MsoNormal><span lang=ZH-CN style='font-size:11.0pt;mso-bidi-font-size:
+  12.0pt;font-family:宋体'></span></p>
+                </td>
+
+            </tr>
+            <tr style='mso-yfti-irow:18'>
+                <td width=47 style='width:35.2pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span lang=ZH-CN
+                                                                                    style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>10</span>
+                    </p>
+                </td>
+                <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>切<span
+                            lang=ZH-CN>/</span>拉边<span lang=ZH-CN></span></span></p>
+                </td>
+                <td width=292 colspan=2 valign=top style='width:219.2pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p id='qlb' class=MsoNormal><span lang=ZH-CN style='font-size:11.0pt;mso-bidi-font-size:
+  12.0pt;font-family:宋体'></span></p>
+                </td>
+
+            </tr>
+            <tr style='mso-yfti-irow:19'>
+                <td width=47 style='width:35.2pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span lang=ZH-CN
+                                                                                    style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>11</span>
+                    </p>
+                </td>
+                <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>研磨<span
+                            lang=ZH-CN></span></span></p>
+                </td>
+                <td width=292 colspan=2 valign=top style='width:219.2pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p id='yanmo' class=MsoNormal><span lang=ZH-CN style='font-size:11.0pt;mso-bidi-font-size:
+  12.0pt;font-family:宋体'></span></p>
+                </td>
+
+            </tr>
+            <tr style='mso-yfti-irow:20'>
+                <td width=47 style='width:35.2pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span lang=ZH-CN
+                                                                                    style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>12</span>
+                    </p>
+                </td>
+                <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal align=center style='text-align:center'><span
+                            style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>抛光<span
+                            lang=ZH-CN></span></span></p>
+                </td>
+                <td width=292 colspan=2 valign=top style='width:219.2pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p id='paoguang' class=MsoNormal><span lang=ZH-CN style='font-size:11.0pt;mso-bidi-font-size:
+  12.0pt;font-family:宋体'></span></p>
+                </td>
+
+            </tr>
+
+
+        </table>
+        <p id='beizhu' class=MsoNormal style='font-size:20.0pt;mso-bidi-font-size:
+20.0pt;font-family:宋体'>备注:</p>
+    </div>
+</div>
+
+</body>
+
+</html>

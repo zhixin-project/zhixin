@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/com/mes/orders/AddOrders.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/mes/orders/ExportOrders.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/mes/orders/FinishOrders.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/mes/orders/GetNewFinishOrders.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/mes/orders/GetOrdersByCusId.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/mes/orders/GetOrdersByMonth.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/mes/processes/StartProcesses.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/mes/products/AddProducts.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/mes/products/ReduceStock.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/mes/workers/FinishProcesses.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/mes/workers/T300Adapter.java" dialect="GenericSQL" />
+  </component>
+</project>

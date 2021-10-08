@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/web/index.html" value="file://$PROJECT_DIR$/web" />
+        <entry key="file://$PROJECT_DIR$/web/manage/add_orders.html" value="file://$PROJECT_DIR$/web/manage" />
+        <entry key="file://$PROJECT_DIR$/web/manage/add_product.html" value="file://$PROJECT_DIR$/web/manage" />
+        <entry key="file://$PROJECT_DIR$/web/manage/orders_bxd_table.html" value="file://$PROJECT_DIR$/web/manage" />
+        <entry key="file://$PROJECT_DIR$/web/manage/orders_table.html" value="file://$PROJECT_DIR$/web/manage" />
+        <entry key="file://$PROJECT_DIR$/web/manage/orders_unfinished_table.html" value="file://$PROJECT_DIR$/web/manage" />
+        <entry key="file://$PROJECT_DIR$/web/manage/print_table.html" value="file://$PROJECT_DIR$/web/manage" />
+        <entry key="file://$PROJECT_DIR$/web/worker/index.html" value="file://$PROJECT_DIR$/web/worker" />
+      </map>
+    </option>
+  </component>
+</project>

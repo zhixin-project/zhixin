@@ -73,6 +73,7 @@
             {{#  if(d.finished ==='1'){ }}
             {{#  if(d.curr_step ==='100'){ }}
             <a class="layui-btn layui-btn-danger layui-btn-xs data-count-edit" lay-event="details">生产过程(订单取消)</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
             {{#  } }}
             {{#  if(d.curr_step !='100'){ }}
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="details">生产过程(订单完成)</a>

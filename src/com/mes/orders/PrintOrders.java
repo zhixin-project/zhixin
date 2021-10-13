@@ -18,8 +18,6 @@ import java.io.PrintWriter;
 import java.sql.*;
 
 /**
- * 客户订单的流程打印成 ”  剪板/落料->冲(通)孔->打字->卷圆->整形->倒角->抛光->翻边-
- * >包装  “ 格式
  * @author 10626
  */
 @WebServlet("/PrintOrders")
@@ -52,7 +50,6 @@ public class PrintOrders extends HttpServlet {
             new dbConnector();
             Connection connect = dbConnector.getConnection();
             String sql;
-            //  通过订单id进行筛选订单
             sql = "SELECT * FROM orders LEFT JOIN products ON orders.product_id=products.id WHERE orders.id=?";
             PreparedStatement ps = connect.prepareStatement(sql);
             try {
@@ -68,7 +65,7 @@ public class PrintOrders extends HttpServlet {
 //          ResultSetMetaData 有关 ResultSet 中列的名称和类型的信息。
                 ResultSetMetaData rsmd = rs.getMetaData();
 //        遍历数据集
-//          数据有多少行
+
                 int columnCount = rsmd.getColumnCount();
 //            列从1开始，要等于
                 for (int i = 1; i <= columnCount; i++) {
@@ -79,14 +76,11 @@ public class PrintOrders extends HttpServlet {
 //                添加到rowObj中
                     result.put(columnName, value);
                 }
-                // 通过产品id进行筛选 工序数据  比如：剪板/落料->冲(通)孔->打字->卷圆->整形->倒角->抛光->翻边-
-                //>包装
                 sql="SELECT * FROM tag_relates LEFT JOIN tags ON tag_relates.tag_id=tags.id WHERE product_id="+id;
                 ps = connect.prepareStatement(sql);
                 rs = ps.executeQuery();
                 rs.next();
                 StringBuilder r= new StringBuilder(rs.getString("name"));
-                //  将每一个订单的工序流程做成流程图
                 while(rs.next()){
                     r.append("->").append(rs.getString("name"));
                 }

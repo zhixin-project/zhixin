@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- * 对于传过来的request请求 转换成Chars 字符串格式
  * @author 10626
  */
 public class ReadAsChars {

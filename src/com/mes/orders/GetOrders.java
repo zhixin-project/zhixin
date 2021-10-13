@@ -17,8 +17,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-/**  筛选器
- *  按照客户名或者客户id查找客户的订单
+/**
  * @author 10626
  */
 @WebServlet("/GetOrders")
@@ -52,12 +51,9 @@ public class GetOrders extends HttpServlet {
             String sql;
             PreparedStatement ps;
             ResultSet rs;
-            // 如果是客户
             if ("customer".equals(request.getParameter("search"))) {
-                // 查找客户 数据  通过客户名进行查找， 按照订单id进行降序排列
                 sql = "SELECT *,IFNULL(curr_step/total_step,0) as percentage FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE `customer`LIKE ? ORDER BY orders.id DESC";
                 ps = connect.prepareStatement(sql);
-                // 根据查找的匹配规则进行查找
                 ps.setString(1, "%" + request.getParameter("customer") + "%");
                 rs = ps.executeQuery();
                 json = rsToJSON.resultSetToJSON(rs);

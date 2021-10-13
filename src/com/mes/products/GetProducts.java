@@ -18,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * 得到产品内容  按照id进行排序
  * @author 10626
  */
 @WebServlet("/GetProducts")

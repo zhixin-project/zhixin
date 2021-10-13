@@ -18,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * 得到产品流程
  * @author 10626
  */
 @WebServlet("/GetProductProcesses")
@@ -52,7 +51,6 @@ public class GetProcesses extends HttpServlet {
             String sql;
             PreparedStatement ps;
             ResultSet rs;
-            // 用产品id查找流程  通过次序升序进行排列流程
             sql = "SELECT * FROM `tag_relates` JOIN `tags` ON tags.id=tag_relates.tag_id WHERE `product_id`= ? ORDER BY sequence";
             ps = connect.prepareStatement(sql);
             ps.setString(1, request.getParameter("id"));

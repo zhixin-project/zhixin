@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * 初始化流程
  * @author 10626
  */
 @WebServlet("/StartProcesses")
@@ -55,13 +54,11 @@ public class StartProcesses extends HttpServlet {
             new dbConnector();
             Connection connect = dbConnector.getConnection();
             String sql;
-            // 对于相同的产品id  筛选出它有哪些工序
             sql = "SELECT tag_id,orders.product_id FROM `orders` LEFT JOIN `tag_relates` on orders.product_id=tag_relates.product_id WHERE `id`= ? ORDER BY sequence";
             PreparedStatement ps = connect.prepareStatement(sql);
             ps.setString(1, request.getParameter("id"));
             ResultSet rs =ps.executeQuery();
             int i=1;
-            // 简单流程加载到数据的流程processes表中
             while(rs.next()){
                 int tagId =rs.getInt(1);
                 sql="INSERT INTO `processes` (`id`,`tag_id`,`sequence`) VALUES (?,?,?)";
@@ -71,7 +68,7 @@ public class StartProcesses extends HttpServlet {
                 ps.setInt(3,i++);
                 ps.executeUpdate();
             }
-            // 输出数据  total_step一个订单工序得总共步数
+            // 输出数据
             sql="UPDATE `orders` SET `started_production`='1', `total_step`=? WHERE (`id`=?)";
             ps = connect.prepareStatement(sql);
             ps.setInt(1,--i);
@@ -79,7 +76,6 @@ public class StartProcesses extends HttpServlet {
             ps.executeUpdate();
             rs.first();
             int productId =rs.getInt(2);
-            // 设置相对应的产品为已经使用
             sql="UPDATE `products` SET `used`='1' WHERE (`id`=?)";
             ps = connect.prepareStatement(sql);
             ps.setInt(1,productId);

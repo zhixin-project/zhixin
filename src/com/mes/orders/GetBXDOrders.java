@@ -18,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * 得到补下单的订单数据
  * @author 10626
  */
 @WebServlet("/GetBXDOrders")
@@ -52,7 +51,7 @@ public class GetBXDOrders extends HttpServlet {
             String sql;
             PreparedStatement ps;
             ResultSet rs;
-            // 从 orders和products两张表按照产品编号左外连接生成的表中 筛选出 补下单而且curr_step!=100 的数据按照交付时间降序排列
+
             sql = "SELECT * FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE `buxiadan`= 1 AND curr_step!=100 ORDER BY required_time desc ";
             ps = connect.prepareStatement(sql);
             rs = ps.executeQuery();

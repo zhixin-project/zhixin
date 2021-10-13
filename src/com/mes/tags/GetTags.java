@@ -17,7 +17,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * 拿到工序
  * @author 10626
  */
 @WebServlet("/GetTags")
@@ -37,11 +36,9 @@ public class GetTags extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/json; charset=utf-8");
-//        System.out.println("getTags");
-//        response.addHeader("Access-Control-Allow-Origin","*");
-//        response.addHeader("Access-Control-Allow-Methods","*");
-//        response.addHeader("Access-Control-Allow-Headers", "*");
         PrintWriter out = response.getWriter();
+
+
         try {
             new dbConnector();
             Connection connect = dbConnector.getConnection();

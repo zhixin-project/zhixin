@@ -31,7 +31,10 @@
                         $("p#bxd").append(" 本单为补下单 ")
                     } else if (i === "bxdly") {
                         $("p#bxd").append(" 补下单理由:" + field)
-                    } else $("#" + i).append(field + " ");
+                    } else if(i==='using_stock'){
+                        $("p#bxd").append(" 使用库存:" + field)
+                    }
+                    else $("#" + i).append(field + " ");
 
                 });
             });
@@ -283,8 +286,8 @@ font-family:宋体'></span></p>
                 <td rowspan="4" width=138 style='width:103.7pt;border:solid windowtext 1.0pt;border-left:
   none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
   padding:0cm 5.4pt 0cm 5.4pt'>
-                    <p id="bxd" class=MsoNormal align=center style='text-align:center'><b><span
-                            style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'><span
+                    <p id="bxd" class=MsoNormal align=center style='font-size:15.0pt;text-align:center'><b><span
+                            style='font-size:15.0pt;mso-bidi-font-size:15.0pt;font-family:宋体'><span
                             lang=ZH-CN></span></span></b></p>
                 </td>
             </tr>
@@ -488,8 +491,7 @@ font-family:宋体'></span></p>
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
-                    <p id=' dj_wj
-                ' class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
+                    <p id='dj_wj' class=MsoNormal><span style='font-size:11.0pt;mso-bidi-font-size:12.0pt;
   font-family:宋体'>外角：<span lang=ZH-CN></span></span></p>
                 </td>
                 <td width=138 rowspan=4 valign=top style='width:103.7pt;border-top:none;

@@ -18,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- *  按照交付时间降序输出提前出库和实际出库原始订单的数据
  * @author 10626
  */
 @WebServlet("/ExportTQCK")
@@ -52,11 +51,10 @@ public class ExportTQCK extends HttpServlet {
             String sql;
             PreparedStatement ps;
             ResultSet rs;
-            //  从orders和products两张表按照产品id进行左外连接之后的附属表中筛选出   buxiadan!=1(表示是原始订单) AND curr_step!=100 AND tqck!=0 的数据，并且按照交付时间按照降序排列
+
             sql = "SELECT *,actual_ship - tqck as sjck FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE buxiadan!=1 AND curr_step!=100 AND tqck!=0 ORDER BY required_time desc ";
             ps = connect.prepareStatement(sql);
             rs = ps.executeQuery();
-            // 将拿到的数据转换成json格式
             json = rsToJSON.resultSetToJSON(rs, Integer.parseInt(request.getParameter("page")), Integer.parseInt(request.getParameter("limit")));
             // 输出数据
             out = response.getWriter();

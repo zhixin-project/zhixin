@@ -16,7 +16,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * 登录界面的业务逻辑判断user和password 然后将IsLogin标签置为true或者返回错误
  * @author 10626
  */
 @WebServlet("/Login")
@@ -68,8 +67,6 @@ public class Login extends HttpServlet {
 
 
         if (password.equals(passwd)) {
-            //  通过IsLogin标签判断是否登录成功
-            // 保存user 用户名
             s.setAttribute("IsLogin", true);
             s.setAttribute("user", user);
             out.println("login_success");

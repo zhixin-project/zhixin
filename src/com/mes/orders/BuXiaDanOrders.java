@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * 补订单，得到订单id，然后补充id订单的信息
  * @author 10626
  */
 @WebServlet("/BxdOrders")

@@ -18,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * 通过订单号进行筛选
  * @author 10626
  */
 @WebServlet("/GetOrdersByCusId")
@@ -52,7 +51,6 @@ public class GetOrdersByCusId extends HttpServlet {
             String sql;
             PreparedStatement ps;
             ResultSet rs;
-            //  通过订单号进行筛选
             sql = "SELECT *,IFNULL(curr_step/total_step,0) as percentage FROM `orders`WHERE `custom_id` =?";
             ps = connect.prepareStatement(sql);
             ps.setString(1, request.getParameter("id"));

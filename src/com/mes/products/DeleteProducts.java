@@ -18,8 +18,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 /**
- *
- * 删除产品
  * @author 10626
  */
 @WebServlet("/DeleteProducts")

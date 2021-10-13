@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * 可以返回给前端登录账户的worker用户名
  * @author 10626
  */
 @WebServlet("/GetWorkerName")

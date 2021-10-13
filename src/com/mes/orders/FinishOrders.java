@@ -17,7 +17,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * 对完成的订单进行操作
  * @author 10626
  */
 @WebServlet("/FinishOrders")
@@ -49,7 +48,6 @@ public class FinishOrders extends HttpServlet {
             new dbConnector();
             Connection connect = dbConnector.getConnection();
             String sql;
-            //
             if(Integer.parseInt(request.getParameter("fhsl"))==0){
                 sql = "UPDATE `orders` SET `curr_step`='100', `total_step`='100', `finished`='1', `actual_ship`=?  WHERE (`custom_id`=?)";
             }else {
@@ -59,7 +57,7 @@ public class FinishOrders extends HttpServlet {
             ps.setInt(1, Integer.parseInt(request.getParameter("fhsl")));
             ps.setString(2, request.getParameter("custom_id"));
             ps.executeUpdate();
-            //  得到第id个订单的产品id
+
             sql="SELECT `product_id` FROM orders WHERE id=?";
             ps = connect.prepareStatement(sql);
             ps.setString(1, request.getParameter("id"));
@@ -67,10 +65,9 @@ public class FinishOrders extends HttpServlet {
             rs.next();
             int productId=rs.getInt(1);
 
-            // 将产品的库存进行补充
+
             sql="UPDATE `products` SET `kucun`=kucun+? WHERE (`id`=?)";
             ps = connect.prepareStatement(sql);
-            // 需要增加的库存数量
             ps.setInt(1, Integer.parseInt(request.getParameter("jksl")));
             ps.setInt(2, productId);
             ps.executeUpdate();

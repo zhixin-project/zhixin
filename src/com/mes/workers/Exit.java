@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * 退出
  * @author 10626
  */
 @WebServlet("/WorkerExit")
@@ -35,7 +34,6 @@ public class Exit extends HttpServlet {
         PrintWriter out = response.getWriter();
         HttpSession s = request.getSession(true);
         out = response.getWriter();
-        // 退出，需要先将workIsLogin的状态表桥置为false 再转到worker的登录界面
         s.setAttribute("WorkerIsLogin", false);
         response.sendRedirect("/worker/login.html");
 

@@ -48,7 +48,7 @@ public class GetLogin extends HttpServlet {
         // TODO Auto-generated method stub
         doGet(request, response);
     }
-    // 判断是否是登录状态
+
     public Boolean getStat(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/json; charset=utf-8");
         HttpSession s = request.getSession(true);

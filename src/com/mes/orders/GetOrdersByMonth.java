@@ -18,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * 筛选器  ，通过开始结束时间来筛选数据
  * @author 10626
  */
 @WebServlet("/GetOrdersByMonth")

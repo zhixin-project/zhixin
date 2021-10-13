@@ -18,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * 得到还没有完成的订单数据
  * @author 10626
  */
 @WebServlet("/GetNewFinishOrders")
@@ -52,7 +51,7 @@ public class GetNewFinishOrders extends HttpServlet {
             String sql;
             PreparedStatement ps;
             ResultSet rs;
-            // 从左外连接的表中 筛选出原始订单，并为还没有完成 curr_step!=100 并且订单号不在完成时间是空的  按照完成时间进行降序排列
+
             sql = "SELECT * FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE buxiadan!=1 AND finished=0 AND curr_step!=100 AND custom_id NOT IN" +
                     "(SELECT custom_id FROM orders WHERE finish_time is NULL) ORDER BY finish_time desc ";
             ps = connect.prepareStatement(sql);

@@ -18,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * 筛选  通过操作 或者通过工序，进行筛选订单流程信息
  * @author 10626
  */
 @WebServlet("/GetProcesses")
@@ -51,7 +50,6 @@ public class GetProcesses extends HttpServlet {
             PreparedStatement ps;
             ResultSet rs;
             if("byoperator".equals(request.getParameter("search"))){
-                // 通过操作员 对状态1 订单流程信息进行查询
                 sql = "SELECT * FROM `processes` LEFT JOIN `tags` on processes.tag_id=tags.id WHERE `operator`= ? AND `status`=1 ORDER BY finished_time desc";
                 ps = connect.prepareStatement(sql);
                 ps.setString(1,request.getParameter("operator"));
@@ -60,7 +58,6 @@ public class GetProcesses extends HttpServlet {
 
             }
             else if("bytag".equals(request.getParameter("search"))){
-                // 通过工序 对状态1 订单流程信息进行查询
                 sql = "SELECT * FROM `processes` LEFT JOIN `tags` on processes.tag_id=tags.id WHERE `tag_id`= ? AND `status`=1 ORDER BY finished_time desc ";
                 ps = connect.prepareStatement(sql);
                 ps.setInt(1, Integer.parseInt(request.getParameter("tag")));
@@ -68,7 +65,6 @@ public class GetProcesses extends HttpServlet {
                 json = rsToJSON.resultSetToJSON(rs,Integer.parseInt(request.getParameter("page")),Integer.parseInt(request.getParameter("limit")));
 
             }else{
-                // 查询订单的流程信息
                 sql = "SELECT * FROM `processes` LEFT JOIN `tags` on processes.tag_id=tags.id WHERE `status`=1 ORDER BY finished_time desc";
                 ps = connect.prepareStatement(sql);
                 rs = ps.executeQuery();

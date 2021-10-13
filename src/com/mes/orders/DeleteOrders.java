@@ -17,7 +17,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 /**
- * 删除订单
  * @author 10626
  */
 @WebServlet("/DeleteOrders")
@@ -53,7 +52,6 @@ public class DeleteOrders extends HttpServlet {
             PreparedStatement ps = connect.prepareStatement(sql);
             ps.setString(1, request.getParameter("id"));
             ps.executeUpdate();
-            // 记得将库存中的之前减去的产品数量加回去
             ReduceStock.reduce(Integer.parseInt(request.getParameter("product")),-Integer.parseInt(request.getParameter("amount")));
             // 输出数据
             out = response.getWriter();

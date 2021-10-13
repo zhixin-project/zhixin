@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * 退出程序
  * @author 10626
  */
 @WebServlet("/Exit")
@@ -33,9 +32,7 @@ public class Exit extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/json; charset=utf-8");
         HttpSession s = request.getSession(true);
-        // 先通过session中将IsLogin标签置为false
         s.setAttribute("IsLogin", false);
-        // 重定向到login.html 登录界面
         response.sendRedirect("login.html");
 
 

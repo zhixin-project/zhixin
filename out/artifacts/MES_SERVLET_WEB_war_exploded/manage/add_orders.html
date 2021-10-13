@@ -1,4 +1,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<style>
+    .layui-form-select{
+        width: 500px;
+    }
+</style>
 <div class="layuimini-container layuimini-page-anim">
     <div class="layuimini-main">
 
@@ -145,7 +150,13 @@
                     if(value.maoban.length===0){
                         kcb='库存板';
                     }
-                    $('#product_id').append(new Option(value.name + " " + value.standard + " " + value.size + " 库存:" + value.kucun + " " + kcb, value.id));// 下拉菜单里添加元素
+                    var hcl=' 后处理:';
+                    // console.log(value.department_id);
+                    if(value.houchuli.length===0){
+                        hcl='';
+                    }
+                    
+                    $('#product_id').append(new Option(value.name + " " + value.standard + " " + value.size + " 库存:" + value.kucun+ hcl + value.houchuli + " " + kcb, value.id));// 下拉菜单里添加元素
                 });
                 layui.form.render("select");//重新渲染 固定写法
             },

@@ -21,7 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * 完成工序响应
  * @author 10626
  */
 @WebServlet("/FinishProcesses")
@@ -52,14 +51,12 @@ public class FinishProcesses extends HttpServlet {
             String sql;
             sql = "SELECT * FROM `orders` WHERE orders.id = ?";
             PreparedStatement ps = connect.prepareStatement(sql);
-            // 传入结束流程的订单id
             ps.setString(1, request.getParameter("id"));
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                int i = rs.getInt("curr_step");  // curr_step 表示现在在第几道工序
-                int total=rs.getInt("total_step"); // 总的工序数
+                int i = rs.getInt("curr_step");
+                int total=rs.getInt("total_step");
                 if (i == total) {
-                    // 表示开始生产的判别标签
                     if (rs.getInt("started_production") == 0) {
                         out.print("该订单未开始生产！");
                     } else {
@@ -72,10 +69,8 @@ public class FinishProcesses extends HttpServlet {
                     } else {
                         int tag_id = Integer.parseInt(s.getAttribute("tag").toString());
                         i++;
-                        // 从流程表中查到这个订单下一步需要完成
                         sql = "SELECT * FROM `processes` WHERE processes.id = ? AND sequence=?";
                         ps = connect.prepareStatement(sql);
-                        // 这里流程的id和订单id一样
                         ps.setString(1, request.getParameter("id"));
                         ps.setInt(2, i);
                         rs = ps.executeQuery();
@@ -113,7 +108,6 @@ public class FinishProcesses extends HttpServlet {
                 }
             } else {
                 out.print("无效订单！");
-
             }
 
             // 完成后关闭

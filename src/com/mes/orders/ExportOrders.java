@@ -18,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * 将已经完成的订单数据进行输出
  * @author 10626
  */
 @WebServlet("/ExportOrders")
@@ -42,7 +41,6 @@ public class ExportOrders extends HttpServlet {
         response.setContentType("text/json; charset=utf-8");
         PrintWriter out = response.getWriter();
         if (!GetLogin.getStat(request, response)) {
-            // 如果没有登录，就返回编写的json数据
             out.print(rsToJSON.getErrorNoLogin());
             return;
         }
@@ -53,11 +51,10 @@ public class ExportOrders extends HttpServlet {
             String sql;
             PreparedStatement ps;
             ResultSet rs;
-            // 在orders表与products表进行左外连接的附表中查找  满足buxiadan!=1 AND curr_step!=100 AND finished=1 的数据，并且按照完成时间降序将数据进行排列
+
             sql = "SELECT *,actual_ship - tqck as sjck FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE buxiadan!=1 AND curr_step!=100 AND finished=1 ORDER BY finish_time desc ";
             ps = connect.prepareStatement(sql);
             rs = ps.executeQuery();
-            //  将得到的数据以json格式输出
             json = rsToJSON.resultSetToJSON(rs, Integer.parseInt(request.getParameter("page")), Integer.parseInt(request.getParameter("limit")));
             // 输出数据
             out = response.getWriter();

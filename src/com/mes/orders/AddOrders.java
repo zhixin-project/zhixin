@@ -45,9 +45,7 @@ public class AddOrders extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/json; charset=utf-8");
         PrintWriter out = response.getWriter();
-
         if(!GetLogin.getStat(request,response)){
-            // 当没有登录时就返回json格式报错数据
             out.print(rsToJSON.getErrorNoLogin());
             return;
         }
@@ -69,22 +67,20 @@ public class AddOrders extends HttpServlet {
             }
             sql = "INSERT INTO `orders` (`id`,`custom_id`, `required_time`, `customer`, `product_id`, `amount`, `beizhu`,`using_stock`, `price`,`mbsl`,`touliao`) VALUES (?,?, ?, ?, ?, ?,?,?,?,?,?)";
             ps = connect.prepareStatement(sql);
-            // id 用时间序列来表示
             DateTimeFormatter ofPattern = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSS");
             String localDate = LocalDateTime.now().format(ofPattern);
             ps.setString(1,localDate);
-            ps.setString(2, json.getString("custom_id"));//  订单号
-            ps.setString(3, json.getString("required_time"));// 交付时间
-            ps.setString(4,json.getString("customer"));// 客户
-            ps.setInt(5, json.getIntValue("product_id"));// 产品id
-            ps.setInt(6,json.getIntValue("amount"));//  生产产品数量
-            ps.setString(7,json.getString("beizhu"));// 备注
-            ps.setInt(8,json.getIntValue("reduce"));//  使用库存
-            ps.setDouble(9,json.getDoubleValue("price"));// 单价
-            ps.setInt(10,json.getIntValue("mbsl")); // 毛板数量
-            ps.setString(11,json.getString("touliao"));//  投料
+            ps.setString(2, json.getString("custom_id"));
+            ps.setString(3, json.getString("required_time"));
+            ps.setString(4,json.getString("customer"));
+            ps.setInt(5, json.getIntValue("product_id"));
+            ps.setInt(6,json.getIntValue("amount"));
+            ps.setString(7,json.getString("beizhu"));
+            ps.setInt(8,json.getIntValue("reduce"));
+            ps.setDouble(9,json.getDoubleValue("price"));
+            ps.setInt(10,json.getIntValue("mbsl"));
+            ps.setString(11,json.getString("touliao"));
             ps.executeUpdate();
-            // 将本次使用的库存从总库存中减去
             ReduceStock.reduce(json.getIntValue("product_id"),json.getIntValue("reduce"));
             // 输出数据
             out = response.getWriter();

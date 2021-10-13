@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * 添加工序
  * @author 10626
  */
 //@WebServlet("/AddTags")
@@ -54,7 +53,6 @@ public class AddTags extends HttpServlet {
             new dbConnector();
             Connection connect = dbConnector.getConnection();
             String sql;
-            // 添加工序
             sql = "INSERT INTO `tags` (`name`) VALUES (?)";
             PreparedStatement ps = connect.prepareStatement(sql);
             ps.setString(1, json.getString("name"));

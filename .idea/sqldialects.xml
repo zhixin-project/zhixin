@@ -7,6 +7,7 @@
     <file url="file://$PROJECT_DIR$/src/com/mes/orders/GetNewFinishOrders.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/com/mes/orders/GetOrdersByCusId.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/com/mes/orders/GetOrdersByMonth.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/mes/orders/GetUnfinishedOrders.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/com/mes/processes/StartProcesses.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/com/mes/products/AddProducts.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/com/mes/products/ReduceStock.java" dialect="GenericSQL" />

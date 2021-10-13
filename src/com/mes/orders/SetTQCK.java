@@ -16,7 +16,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 /**
- *设置提前出库
  * @author 10626
  */
 @WebServlet("/SetTQCK")
@@ -48,7 +47,6 @@ public class SetTQCK extends HttpServlet {
             new dbConnector();
             Connection connect = dbConnector.getConnection();
             String sql;
-            // 对几号订单设置提前出库的数量
             sql = "UPDATE `orders` SET `tqck`=? WHERE (`id`=?)";
             PreparedStatement ps = connect.prepareStatement(sql);
             ps.setInt(1, Integer.parseInt(request.getParameter("amount")));

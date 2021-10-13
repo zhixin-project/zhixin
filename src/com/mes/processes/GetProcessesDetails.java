@@ -18,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * 查询订单流程的详细信息
  * @author 10626
  */
 @WebServlet("/GetProcessesDetails")
@@ -48,7 +47,6 @@ public class GetProcessesDetails extends HttpServlet {
             new dbConnector();
             Connection connect = dbConnector.getConnection();
             String sql;
-            // 查新订单流程的详细信息
             sql = "SELECT * FROM `processes` LEFT JOIN `orders` on processes.id=orders.id LEFT JOIN `tags` on processes.tag_id=tags.id WHERE orders.id = ? ORDER BY `sequence`";
             PreparedStatement ps = connect.prepareStatement(sql);
             ps.setString(1,request.getParameter("id"));

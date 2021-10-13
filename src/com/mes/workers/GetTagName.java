@@ -16,7 +16,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
- * 得到工序得名字  传入工序id
  * @author 10626
  */
 @WebServlet("/GetTagName")

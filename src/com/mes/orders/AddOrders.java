@@ -15,12 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 import com.mes.manage.GetLogin;
 
 /**
@@ -65,7 +66,7 @@ public class AddOrders extends HttpServlet {
                 out.print("订单号重复！");
                 return;
             }
-            sql = "INSERT INTO `orders` (`id`,`custom_id`, `required_time`, `customer`, `product_id`, `amount`, `beizhu`,`using_stock`, `price`,`mbsl`,`touliao`) VALUES (?,?, ?, ?, ?, ?,?,?,?,?,?)";
+            sql = "INSERT INTO `orders` (`id`,`custom_id`, `required_time`, `customer`, `product_id`, `amount`, `beizhu`,`using_stock`, `price`,`mbsl`,`touliao`,`finish_time`) VALUES (?,?, ?, ?, ?, ?,?,?,?,?,?,?)";
             ps = connect.prepareStatement(sql);
             DateTimeFormatter ofPattern = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSS");
             String localDate = LocalDateTime.now().format(ofPattern);
@@ -80,6 +81,15 @@ public class AddOrders extends HttpServlet {
             ps.setDouble(9,json.getDoubleValue("price"));
             ps.setInt(10,json.getIntValue("mbsl"));
             ps.setString(11,json.getString("touliao"));
+            if(json.getIntValue("amount")==json.getIntValue("reduce")){
+                java.util.Date date = new Date();
+                DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String punchTime = simpleDateFormat.format(date);
+                ps.setString(12, punchTime);
+
+            }else {
+                ps.setNull(12, Types.TIME);
+            }
             ps.executeUpdate();
             ReduceStock.reduce(json.getIntValue("product_id"),json.getIntValue("reduce"));
             // 输出数据

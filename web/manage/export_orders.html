@@ -88,9 +88,9 @@
                     }
                 })
 
-                // excel.exportExcel({
-                //     sheet1: data
-                // }, '送货单导出.xlsx', 'xlsx');
+                excel.exportExcel({
+                    sheet1: data
+                }, '送货单导出.xlsx', 'xlsx');
                 var alldata =layui.table.cache.currentTableId
                 let ids=[]
                 for(let i =1;i<selectData.length;i++) {

@@ -44,6 +44,12 @@
                   "href": "manage/orders_new_finish_table.html",
                   "icon": "fa fa-meetup",
                   "target": "_self"
+                },
+                {
+                  "title": "已完成订单",
+                  "href": "manage/orders_old_finish_table.html",
+                  "icon": "fa fa-meetup",
+                  "target": "_self"
                 }
               ]
             },

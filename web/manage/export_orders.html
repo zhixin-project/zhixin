@@ -63,7 +63,7 @@
                     packs:'箱数',
                     sjck:'送货数量',
                     custom_id:'采购单号'
-            });
+                });
                 var data = excel.filterExportData(selectData, [
                     'standard',
                     'name',
@@ -88,20 +88,25 @@
                     }
                 })
 
-                // excel.exportExcel({
-                //     sheet1: data
-                // }, '送货单导出.xlsx', 'xlsx');
+                excel.exportExcel({
+                    sheet1: data
+                }, '送货单导出.xlsx', 'xlsx');
                 let ids=''
                 for(let i =1;i<selectData.length;i++) {
                     i===selectData.length-1? ids+=selectData[i].id:ids+=selectData[i].id+','
                 }
                 console.log('ids',ids)
-                //
-                // layui.table.cache.currentTableId=alldata
-                // console.log('ertyuiou',obj,layui.table)
-                // table.render()
                 var xhr=new XMLHttpRequest()
-                xhr.open('post','')
+                xhr.open('get','SetExported?'+'string='+ids)
+                xhr.send()
+                xhr.onreadystatechange=function () {
+                    if(xhr.readyState===4){
+                        if(xhr.status>=200&&xhr.status<300){
+                            console.log('this',this)
+                            table.reload('currentTableId');
+                        }
+                    }
+                }
             }
         });
     });

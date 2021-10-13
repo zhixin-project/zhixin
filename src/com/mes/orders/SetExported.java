@@ -1,8 +1,8 @@
 package com.mes.orders;
 
 
-import com.alibaba.fastjson.JSON;
 import com.mes.manage.GetLogin;
+import tools.ReadAsChars;
 import tools.dbConnector;
 import tools.rsToJSON;
 
@@ -15,22 +15,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 /**
  * @author 10626
  */
-@WebServlet("/ExportOrders")
-public class ExportOrders extends HttpServlet {
+@WebServlet("/SetExported")
+public class SetExported extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ExportOrders() {
+    public SetExported() {
         super();
     }
-
     @Override
     public void init() throws ServletException {
 
@@ -40,34 +38,32 @@ public class ExportOrders extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/json; charset=utf-8");
         PrintWriter out = response.getWriter();
-        if (!GetLogin.getStat(request, response)) {
-            out.print(rsToJSON.getErrorNoLogin());
-            return;
-        }
-        JSON json = null;
+//        if(!GetLogin.getStat(request,response)){
+//            out.print(rsToJSON.getErrorNoLogin());
+//            return;
+//        }
+        request.setCharacterEncoding("utf-8");
+
         try {
             new dbConnector();
             Connection connect = dbConnector.getConnection();
             String sql;
-            PreparedStatement ps;
-            ResultSet rs;
+            String string = request.getParameter("string");
+            sql = "UPDATE `orders` SET `exported`=1 WHERE `id` In ("+string+")";
+            PreparedStatement ps = connect.prepareStatement(sql);
 
-            sql = "SELECT *,actual_ship - tqck as sjck FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE buxiadan!=1 AND curr_step!=100 AND finished=1 AND exported=0 ORDER BY finish_time desc ";
-            ps = connect.prepareStatement(sql);
-            rs = ps.executeQuery();
-            json = rsToJSON.resultSetToJSON(rs, Integer.parseInt(request.getParameter("page")), Integer.parseInt(request.getParameter("limit")));
+            ps.executeUpdate();
+
             // 输出数据
             out = response.getWriter();
 
-            out.println(json);
+            out.println("success");
             // 完成后关闭
-            rs.close();
             ps.close();
             connect.close();
-        } catch (Exception e) {
-            out.print(rsToJSON.getError());
-            e.printStackTrace();
-        }
+        }catch (Exception e) {
+            out.print("fail");
+            e.printStackTrace(); }
     }
 
     /**

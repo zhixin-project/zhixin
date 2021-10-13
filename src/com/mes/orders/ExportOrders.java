@@ -52,7 +52,7 @@ public class ExportOrders extends HttpServlet {
             PreparedStatement ps;
             ResultSet rs;
 
-            sql = "SELECT *,actual_ship - tqck as sjck FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE buxiadan!=1 AND curr_step!=100 AND finished=1 ORDER BY finish_time desc ";
+            sql = "SELECT *,actual_ship - tqck as sjck FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE buxiadan!=1 AND curr_step!=100 AND finished=1 AND exported=0 ORDER BY finish_time desc ";
             ps = connect.prepareStatement(sql);
             rs = ps.executeQuery();
             json = rsToJSON.resultSetToJSON(rs, Integer.parseInt(request.getParameter("page")), Integer.parseInt(request.getParameter("limit")));

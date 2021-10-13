@@ -22,14 +22,14 @@ import java.sql.ResultSet;
  * 筛选出已经完成的订单，当search为true时就可以使用 按照客户名字进行筛选没有完成的订单
  * @author 10626
  */
-@WebServlet("/GetFinishedOrders")
-public class GetFinishedOrders extends HttpServlet {
+@WebServlet("/WarnOrders")
+public class WarnOrders extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetFinishedOrders() {
+    public WarnOrders() {
         super();
     }
     @Override
@@ -51,28 +51,18 @@ public class GetFinishedOrders extends HttpServlet {
             String sql;
             PreparedStatement ps;
             ResultSet rs;
-            // 如果标签search为true表示按照 客户姓名进行筛选
-            if("true".equals(request.getParameter("search"))){
-                sql = "SELECT *,IFNULL(curr_step/total_step,0) as percentage FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE `customer`LIKE ? AND finished=1 ORDER BY required_time";
-                ps = connect.prepareStatement(sql);
-                ps.setString(1,"%"+request.getParameter("customer")+"%");
-                rs = ps.executeQuery();
-                json = rsToJSON.resultSetToJSON(rs);
 
-            }
-            else{
-                // 反之就查询所有没有完成的订单
-                sql = "SELECT *,IFNULL(curr_step/total_step,0) as percentage FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE finished=1 ORDER BY required_time";
-                ps = connect.prepareStatement(sql);
-                rs = ps.executeQuery();
-                json = rsToJSON.resultSetToJSON(rs,Integer.parseInt(request.getParameter("page")),Integer.parseInt(request.getParameter("limit")));
-            }
-
+            sql = "select * from processes";
+            ps = connect.prepareStatement(sql);
+//            ps.setString(1,"%"+request.getParameter("customer")+"%");
+            rs = ps.executeQuery();
+            json = rsToJSON.resultSetToJSON(rs);
 
             // 输出数据
             out = response.getWriter();
 
             out.println(json);
+
             // 完成后关闭
             rs.close();
             ps.close();

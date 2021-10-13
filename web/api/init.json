@@ -50,6 +50,12 @@
                   "href": "manage/orders_old_finish_table.html",
                   "icon": "fa fa-meetup",
                   "target": "_self"
+                },
+                {
+                  "title": "预警订单",
+                  "href": "manage/warn_table.html",
+                  "icon": "fa fa-meetup",
+                  "target": "_self"
                 }
               ]
             },

@@ -88,26 +88,20 @@
                     }
                 })
 
-                excel.exportExcel({
-                    sheet1: data
-                }, '送货单导出.xlsx', 'xlsx');
-                var alldata =layui.table.cache.currentTableId
-                let ids=[]
+                // excel.exportExcel({
+                //     sheet1: data
+                // }, '送货单导出.xlsx', 'xlsx');
+                let ids=''
                 for(let i =1;i<selectData.length;i++) {
-                    alldata=alldata.filter(function (item){
-                        console.log(selectData[i].id,item.id)
-                        return item.id!==selectData[i].id
-                    })
-                    ids.push(selectData[i].id)
-                    console.log(alldata)
+                    i===selectData.length-1? ids+=selectData[i].id:ids+=selectData[i].id+','
                 }
-
-                layui.table.cache.currentTableId=alldata
-                console.log('ertyuiouy',data,layui.table,alldata)
-                table.reload('currentTableId');
+                console.log('ids',ids)
+                //
+                // layui.table.cache.currentTableId=alldata
+                // console.log('ertyuiou',obj,layui.table)
                 // table.render()
-                // var xhr=new XMLHttpRequest()
-                // xhr.open('post','')
+                var xhr=new XMLHttpRequest()
+                xhr.open('post','')
             }
         });
     });

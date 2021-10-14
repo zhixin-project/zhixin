@@ -1,0 +1,215 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<style>
+    .layui-form-select{
+        width: 500px;
+    }
+</style>
+<div class="layuimini-container layuimini-page-anim">
+    <div class="layuimini-main">
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>修改产品</legend>
+        </fieldset>
+
+        <form method="post" class="layui-form" action="/AddOrders">
+            <div class="layui-form-item">
+                <label class="layui-form-label">型号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name"  autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">规格</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="size" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">库存</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="kucun" id="库存" lay-verify="date"
+                                   placeholder=""
+                                   autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">毛板</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="maoban" id="maoban" lay-verify="date"
+                               placeholder=""
+                               autocomplete="off" class="layui-input">
+                    </div>
+
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">后处理</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="houchuli"
+                               placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label">材质</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="材质"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">投料</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="touliao"
+                               placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">使用库存</label>
+                    <div class="layui-input-block">
+                        <input type="number" name="reduce" lay-verify="required|number" lay-reqtext="必填项"
+                               placeholder="请输入" autocomplete="off" class="layui-input" value="0">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label">需求数量</label>
+                    <div class="layui-input-block">
+                        <input type="number" name="amount" lay-verify="required|number" lay-reqtext="必填项"
+                               placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">备注</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="beizhu" autocomplete="off" placeholder="请输入备注"
+                                   class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button type='submit' class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<script charset="UTF-8">
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+
+        /**
+         * 初始化表单，要加上，不然刷新部分组件可能会不加载
+         */
+        form.render();
+
+        //日期
+        laydate.render({
+            elem: '#required_time'
+        });
+        var $ = layui.jquery
+
+        $.ajax({
+            url: 'GetProducts',
+            dataType: 'json',
+            type: 'get',
+            success: function (data) {
+                $("#product_id").empty();
+                $("#product_id").append(new Option("请选择或搜索产品", ""));
+                console.log(data);//下面会提到这个data是什么值
+                //使用循环遍历，给下拉列表赋值
+                $.each(data.data, function (index, value) {
+                    var kcb='无库存板';
+                    // console.log(value.department_id);
+                    if(value.maoban.length===0){
+                        kcb='库存板';
+                    }
+                    var hcl=' 后处理:';
+                    // console.log(value.department_id);
+                    if(value.houchuli.length===0){
+                        hcl='';
+                    }
+
+                    $('#product_id').append(new Option(value.name + " " + value.standard + " " + value.size + " 库存:" + value.kucun+ hcl + value.houchuli + " " + kcb, value.id));// 下拉菜单里添加元素
+                });
+                layui.form.render("select");//重新渲染 固定写法
+            },
+            error: function () {
+                layer.open({
+                    content: '加载失败！',
+                });
+            }
+        })
+        //监听提交
+        form.on('submit(demo1)', function (data) {
+            // layer.alert(JSON.stringify(data.field), {
+            //     title: '最终的提交信息'
+            // })
+            var xmlHttpReg = null;
+            if (window.ActiveXObject) {//如果是IE
+
+                xmlHttpReg = new ActiveXObject("Microsoft.XMLHTTP");
+
+            } else if (window.XMLHttpRequest) {
+
+                xmlHttpReg = new XMLHttpRequest(); //实例化一个xmlHttpReg
+            }
+
+            //如果实例化成功,就调用open()方法,就开始准备向服务器发送请求
+            if (xmlHttpReg != null) {
+                xmlHttpReg.open("POST", "AddOrders", true);
+                xmlHttpReg.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlHttpReg.onreadystatechange = doResult; //设置回调函数
+                xmlHttpReg.send(JSON.stringify(data.field));
+            }
+
+            //回调函数
+            //一旦readyState的值改变,将会调用这个函数,readyState=4表示完成相应
+
+            //设定函数doResult()
+            function doResult() {
+
+                if (xmlHttpReg.readyState === 4) {//4代表执行完成
+
+
+                    if (xmlHttpReg.status === 200) {//200代表执行成功
+                        //将xmlHttpReg.responseText的值赋给ID为resText的元素
+                        if (xmlHttpReg.responseText.includes("success")) {
+                            alert("操作成功");
+                            parent.reloadData();
+                            layer.closeAll();
+                        } else alert("操作失败！" + xmlHttpReg.responseText);
+
+                    }
+                }
+
+            }
+
+            return false;
+        });
+
+    });
+</script>

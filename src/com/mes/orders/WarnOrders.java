@@ -3,8 +3,9 @@ package com.mes.orders;
 
 import com.alibaba.fastjson.JSON;
 import com.mes.manage.GetLogin;
-import tools.rsToJSON;
 import tools.dbConnector;
+import tools.rsToJSON;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,16 +18,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
+ *
+ * 筛选出已经完成的订单，当search为true时就可以使用 按照客户名字进行筛选没有完成的订单
  * @author 10626
  */
-@WebServlet("/GetFinishedOrders")
-public class GetFinishedOrders extends HttpServlet {
+@WebServlet("/WarnOrders")
+public class WarnOrders extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetFinishedOrders() {
+    public WarnOrders() {
         super();
     }
     @Override
@@ -48,34 +51,18 @@ public class GetFinishedOrders extends HttpServlet {
             String sql;
             PreparedStatement ps;
             ResultSet rs;
-            if("customer".equals(request.getParameter("search"))){
-                sql = "SELECT *,IFNULL(curr_step/total_step,0) as percentage FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE `customer`LIKE ? AND finished=1 AND finish_time IS NOT NULL ORDER BY required_time";
-                ps = connect.prepareStatement(sql);
-                ps.setString(1,"%"+request.getParameter("customer")+"%");
-                rs = ps.executeQuery();
-                json = rsToJSON.resultSetToJSON(rs);
 
-            }
-            else if ("custom_id".equals(request.getParameter("search"))) {
-                sql = "SELECT *,IFNULL(curr_step/total_step,0) as percentage FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE `custom_id`LIKE ? AND finished=1 AND finish_time IS NOT NULL ORDER BY orders.id DESC";
-                ps = connect.prepareStatement(sql);
-                ps.setString(1, "%" + request.getParameter("custom_id") + "%");
-                rs = ps.executeQuery();
-                json = rsToJSON.resultSetToJSON(rs);
-
-            }
-            else{
-                sql = "SELECT *,IFNULL(curr_step/total_step,0) as percentage FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE finished=1 AND finish_time IS NOT NULL ORDER BY required_time";
-                ps = connect.prepareStatement(sql);
-                rs = ps.executeQuery();
-                json = rsToJSON.resultSetToJSON(rs,Integer.parseInt(request.getParameter("page")),Integer.parseInt(request.getParameter("limit")));
-            }
-
+            sql = "select * from processes";
+            ps = connect.prepareStatement(sql);
+//            ps.setString(1,"%"+request.getParameter("customer")+"%");
+            rs = ps.executeQuery();
+            json = rsToJSON.resultSetToJSON(rs);
 
             // 输出数据
             out = response.getWriter();
 
             out.println(json);
+
             // 完成后关闭
             rs.close();
             ps.close();

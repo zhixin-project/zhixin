@@ -4,7 +4,7 @@
         <fieldset class="table-search-fieldset">
             <legend>搜索信息</legend>
             <div style="margin: 10px 10px 10px 10px">
-                <form class="layui-form layui-form-pane" action="" style="display: flex ">
+                <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
                             <label class="layui-form-label">客户名称</label>
@@ -14,9 +14,7 @@
                         </div>
 
                         <div class="layui-inline">
-                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit
-                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
-                            </button>
+                            <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -34,31 +32,14 @@
                             </button>
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">产品规格</label>
-                            <div class="layui-input-inline">
-                                <input type="text" id="size" name="size" autocomplete="off"
-                                       class="layui-input">
-                            </div>
-                        </div>
-
-                        <div class="layui-inline">
-                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit
-                                    lay-filter="data-search-btn1"><i class="layui-icon"></i> 搜 索
-                            </button>
-                        </div>
-                    </div>
                 </form>
             </div>
         </fieldset>
 
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加</button>
-                <button name="refresh" id="refresh" class="layui-btn layui-btn-normal layui-btn-sm" lay-event="refresh">
-                    刷新
-                </button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
+                <button name="refresh" id="refresh" class="layui-btn layui-btn-normal layui-btn-sm" lay-event="refresh"> 刷新 </button>
             </div>
         </script>
 
@@ -67,7 +48,6 @@
         <script type="text/html" id="currentTableBar">
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="print">打印</a>
             {{#  if(d.finished ==='0'){ }}
-
             {{#  if(d.started_production ==='1'){ }}
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="details">生产过程</a>
             {{#  if(d.buxiadan ==='0'){ }}
@@ -88,7 +68,6 @@
             {{#  if(d.finished ==='1'){ }}
             {{#  if(d.curr_step ==='100'){ }}
             <a class="layui-btn layui-btn-danger layui-btn-xs data-count-edit" lay-event="details">生产过程(订单取消)</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
             {{#  } }}
             {{#  if(d.curr_step !='100'){ }}
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="details">生产过程(订单完成)</a>
@@ -101,17 +80,17 @@
 </div>
 
 <script>
-    layui.use(['form', 'table', 'miniPage', 'element'], function () {
+    layui.use(['form', 'table','miniPage','element'], function () {
         var $ = layui.jquery,
             form = layui.form,
             table = layui.table,
             miniPage = layui.miniPage;
 
         table.render({
-            title: '订单信息',
+            title:'未完成订单',
             elem: '#currentTableId',
+            url: '/WarnOrders',
             height:420,
-            url: '/GetOrders?search=false',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -119,24 +98,17 @@
                 icon: 'layui-icon-tips'
             }],
             cols: [[
-                {field: 'id', width: 60, title: 'ID', sort: true},
+                {field: 'id', width: 200, title: 'ID', sort: true},
                 {field: 'custom_id', width: 200, title: '订单号', sort: true},
                 {field: 'name', width: 120, title: '产品型号', sort: true},
-                {field: 'size', width: 120, title: '产品规格', sort: true},
                 {
                     field: 'percentage', title: '完成度', width: 100, sort: true,
                     templet: function (d) {
                         return (d.percentage * 100).toFixed(2) + "%";
                     }
                 },
-                {field: 'finish_time', width: 240, title: '完成时间', sort: true},
-                {field: 'standard', width: 120, title: '标准', sort: true},
                 {field: 'required_time', width: 120, title: '交付时间', sort: true},
                 {field: 'customer', width: 120, title: '客户', sort: true},
-                {field: 'price', title: '单价', width: 100, sort: true},
-                {field: 'amount', title: '数量', width: 100, sort: true},
-                {field: 'tqck', title: '提前出库', width: 100, sort: true},
-                {field: 'actual_ship', title: '实际出库', width: 100, sort: true},
                 {
                     field: 'started_production', width: 80, title: '生产', sort: true,
                     templet: function (d) {
@@ -148,19 +120,6 @@
                         }
                     }
                 },
-                {
-                    field: 'buxiadan', width: 100, title: '补下单', sort: true,
-                    templet: function (d) {
-                        if (d.buxiadan === '0') {
-                            return '否'
-                        } else {
-                            return '是'
-                        }
-                    }
-                },
-                {field: 'bxdly', title: '补下单理由', width: 150, sort: true},
-                {field: 'beizhu', title: '备注', width: 100, sort: true},
-                {title: '操作', width: 350, toolbar: '#currentTableBar', align: "center", fixed: 'right'}
             ]],
             limits: [10, 15, 20, 25, 50, 100, 1000],
             limit: 100,
@@ -172,121 +131,121 @@
         form.on('submit(data-search-btn)', function (data) {
             var $ = layui.jquery;
             table.render({
-                title: '订单信息',
+                title:'未完成订单',
                 elem: '#currentTableId',
-                url: '/GetOrders?search=customer&customer=' + $('#customer').val(),
+                url: '/GetUnfinishedOrders?search=customer&customer='+$('#customer').val(),
                 toolbar: '#toolbarDemo',
                 defaultToolbar: ['filter', 'exports', 'print', {
                     title: '提示',
                     layEvent: 'LAYTABLE_TIPS',
                     icon: 'layui-icon-tips'
                 }],
-                            cols: [[
-                {field: 'id', width: 60, title: 'ID', sort: true},
-                {field: 'custom_id', width: 200, title: '订单号', sort: true},
-                {field: 'name', width: 120, title: '产品型号', sort: true},
-                {field: 'size', width: 120, title: '产品规格', sort: true},
-                {
-                    field: 'percentage', title: '完成度', width: 100, sort: true,
-                    templet: function (d) {
-                        return (d.percentage * 100).toFixed(2) + "%";
-                    }
-                },
-                {field: 'finish_time', width: 240, title: '完成时间', sort: true},
-                {field: 'standard', width: 120, title: '标准', sort: true},
-                {field: 'required_time', width: 120, title: '交付时间', sort: true},
-                {field: 'customer', width: 120, title: '客户', sort: true},
-                {field: 'price', title: '单价', width: 100, sort: true},
-                {field: 'amount', title: '数量', width: 100, sort: true},
-                {field: 'tqck', title: '提前出库', width: 100, sort: true},
-                {field: 'actual_ship', title: '实际出库', width: 100, sort: true},
-                {
-                    field: 'started_production', width: 80, title: '生产', sort: true,
-                    templet: function (d) {
-                        if (d.finished === 1) return '完成'
-                        else if (d.started_production === '0') {
-                            return '未开始'
-                        } else if (d.started_production === '1') {
-                            return '开始'
+                cols: [[
+                    {field: 'id', width: 60, title: 'ID', sort: true},
+                    {field: 'custom_id', width: 200, title: '订单号', sort: true},
+                    {field: 'name', width: 120, title: '产品型号', sort: true},
+                    {field: 'size', width: 120, title: '产品规格', sort: true},
+                    {
+                        field: 'percentage', title: '完成度', width: 100, sort: true,
+                        templet: function (d) {
+                            return (d.percentage * 100).toFixed(2) + "%";
                         }
-                    }
-                },
-                {
-                    field: 'buxiadan', width: 100, title: '补下单', sort: true,
-                    templet: function (d) {
-                        if (d.buxiadan === '0') {
-                            return '否'
-                        } else {
-                            return '是'
+                    },
+                    {field: 'finish_time', width: 240, title: '完成时间', sort: true},
+                    {field: 'standard', width: 120, title: '标准', sort: true},
+                    {field: 'required_time', width: 120, title: '交付时间', sort: true},
+                    {field: 'customer', width: 120, title: '客户', sort: true},
+                    {field: 'price', title: '单价', width: 100, sort: true},
+                    {field: 'amount', title: '数量', width: 100, sort: true},
+                    {field: 'tqck', title: '提前出库', width: 100, sort: true},
+                    {field: 'actual_ship', title: '实际出库', width: 100, sort: true},
+                    {
+                        field: 'started_production', width: 80, title: '生产', sort: true,
+                        templet: function (d) {
+                            if (d.finished === 1) return '完成'
+                            else if (d.started_production === '0') {
+                                return '未开始'
+                            } else if (d.started_production === '1') {
+                                return '开始'
+                            }
                         }
-                    }
-                },
-                {field: 'bxdly', title: '补下单理由', width: 150, sort: true},
-                {field: 'beizhu', title: '备注', width: 100, sort: true},
-                {title: '操作', width: 350, toolbar: '#currentTableBar', align: "center", fixed: 'right'}
-            ]],
+                    },
+                    {
+                        field: 'buxiadan', width: 100, title: '补下单', sort: true,
+                        templet: function (d) {
+                            if (d.buxiadan === '0') {
+                                return '否'
+                            } else {
+                                return '是'
+                            }
+                        }
+                    },
+                    {field: 'bxdly', title: '补下单理由', width: 150, sort: true},
+                    {field: 'beizhu', title: '备注', width: 100, sort: true},
+                    {title: '操作', width: 350, toolbar: '#currentTableBar', align: "center", fixed: 'right'}
+                ]],
                 page: false,
                 skin: 'line'
             });
             return false;
         });
+
         form.on('submit(data-search-btn1)', function (data) {
             var $ = layui.jquery;
             table.render({
                 title: '订单信息',
                 elem: '#currentTableId',
-                height:420,
-                url: '/GetOrders?search=custom_id&custom_id=' + $('#custom_id').val(),
+                url: '/GetUnfinishedOrders?search=custom_id&custom_id=' + $('#custom_id').val(),
                 toolbar: '#toolbarDemo',
                 defaultToolbar: ['filter', 'exports', 'print', {
                     title: '提示',
                     layEvent: 'LAYTABLE_TIPS',
                     icon: 'layui-icon-tips'
                 }],
-                            cols: [[
-                {field: 'id', width: 60, title: 'ID', sort: true},
-                {field: 'custom_id', width: 200, title: '订单号', sort: true},
-                {field: 'name', width: 120, title: '产品型号', sort: true},
-                {field: 'size', width: 120, title: '产品规格', sort: true},
-                {
-                    field: 'percentage', title: '完成度', width: 100, sort: true,
-                    templet: function (d) {
-                        return (d.percentage * 100).toFixed(2) + "%";
-                    }
-                },
-                {field: 'finish_time', width: 240, title: '完成时间', sort: true},
-                {field: 'standard', width: 120, title: '标准', sort: true},
-                {field: 'required_time', width: 120, title: '交付时间', sort: true},
-                {field: 'customer', width: 120, title: '客户', sort: true},
-                {field: 'price', title: '单价', width: 100, sort: true},
-                {field: 'amount', title: '数量', width: 100, sort: true},
-                {field: 'tqck', title: '提前出库', width: 100, sort: true},
-                {field: 'actual_ship', title: '实际出库', width: 100, sort: true},
-                {
-                    field: 'started_production', width: 80, title: '生产', sort: true,
-                    templet: function (d) {
-                        if (d.finished === 1) return '完成'
-                        else if (d.started_production === '0') {
-                            return '未开始'
-                        } else if (d.started_production === '1') {
-                            return '开始'
+                cols: [[
+                    {field: 'id', width: 60, title: 'ID', sort: true},
+                    {field: 'custom_id', width: 200, title: '订单号', sort: true},
+                    {field: 'name', width: 120, title: '产品型号', sort: true},
+                    {field: 'size', width: 120, title: '产品规格', sort: true},
+                    {
+                        field: 'percentage', title: '完成度', width: 100, sort: true,
+                        templet: function (d) {
+                            return (d.percentage * 100).toFixed(2) + "%";
                         }
-                    }
-                },
-                {
-                    field: 'buxiadan', width: 100, title: '补下单', sort: true,
-                    templet: function (d) {
-                        if (d.buxiadan === '0') {
-                            return '否'
-                        } else {
-                            return '是'
+                    },
+                    {field: 'finish_time', width: 240, title: '完成时间', sort: true},
+                    {field: 'standard', width: 120, title: '标准', sort: true},
+                    {field: 'required_time', width: 120, title: '交付时间', sort: true},
+                    {field: 'customer', width: 120, title: '客户', sort: true},
+                    {field: 'price', title: '单价', width: 100, sort: true},
+                    {field: 'amount', title: '数量', width: 100, sort: true},
+                    {field: 'tqck', title: '提前出库', width: 100, sort: true},
+                    {field: 'actual_ship', title: '实际出库', width: 100, sort: true},
+                    {
+                        field: 'started_production', width: 80, title: '生产', sort: true,
+                        templet: function (d) {
+                            if (d.finished === 1) return '完成'
+                            else if (d.started_production === '0') {
+                                return '未开始'
+                            } else if (d.started_production === '1') {
+                                return '开始'
+                            }
                         }
-                    }
-                },
-                {field: 'bxdly', title: '补下单理由', width: 150, sort: true},
-                {field: 'beizhu', title: '备注', width: 100, sort: true},
-                {title: '操作', width: 350, toolbar: '#currentTableBar', align: "center", fixed: 'right'}
-            ]],
+                    },
+                    {
+                        field: 'buxiadan', width: 100, title: '补下单', sort: true,
+                        templet: function (d) {
+                            if (d.buxiadan === '0') {
+                                return '否'
+                            } else {
+                                return '是'
+                            }
+                        }
+                    },
+                    {field: 'bxdly', title: '补下单理由', width: 150, sort: true},
+                    {field: 'beizhu', title: '备注', width: 100, sort: true},
+                    {title: '操作', width: 350, toolbar: '#currentTableBar', align: "center", fixed: 'right'}
+                ]],
                 page: false,
                 skin: 'line'
             });
@@ -305,7 +264,7 @@
                     title: '添加订单',
                     type: 1,
                     shade: 0.2,
-                    maxmin: true,
+                    maxmin:true,
                     shadeClose: true,
                     area: [openWH[0] + 'px', openWH[1] + 'px'],
                     offset: [openWH[2] + 'px', openWH[3] + 'px'],
@@ -314,7 +273,8 @@
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
-            } else if (obj.event === 'refresh') {   // 监听刷新操作
+            }
+            else if (obj.event === 'refresh') {   // 监听刷新操作
                 table.reload('currentTableId');
             }
         });
@@ -328,13 +288,13 @@
                 var openWH = miniPage.getOpenWidthHeight();
                 layui.data('curr_id', {
                     key: 'id'
-                    , value: data.id
+                    ,value: data.id
                 });
                 var index = layer.open({
                     title: '生产过程',
                     type: 1,
                     shade: 0.2,
-                    maxmin: true,
+                    maxmin:true,
                     shadeClose: true,
                     area: [openWH[0] + 'px', openWH[1] + 'px'],
                     offset: [openWH[2] + 'px', openWH[3] + 'px'],
@@ -344,10 +304,11 @@
                     layer.full(index);
                 });
                 return false;
-            } else if (obj.event === 'start_process') {
+            }
+            else if (obj.event === 'start_process') {
                 layer.confirm('确认要开始生产吗？(开始后订单及对应产品将无法删除)', {
-                    btn: ['确定', '取消']//按钮
-                }, function (index) {
+                    btn : [ '确定', '取消' ]//按钮
+                }, function(index) {
 
                     layer.close(index);
                     var xmlHttpReg = null;
@@ -362,7 +323,7 @@
 
                     //如果实例化成功,就调用open()方法,就开始准备向服务器发送请求
                     if (xmlHttpReg != null) {
-                        xmlHttpReg.open("GET", "StartProcesses?id=" + data.id, true);
+                        xmlHttpReg.open("GET", "StartProcesses?id="+data.id, true);
                         xmlHttpReg.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                         xmlHttpReg.onreadystatechange = doResult; //设置回调函数
                         xmlHttpReg.send();
@@ -380,11 +341,12 @@
 
                             if (xmlHttpReg.status === 200) {//200代表执行成功
                                 //将xmlHttpReg.responseText的值赋给ID为resText的元素
-                                if (xmlHttpReg.responseText.includes("success")) {
+                                if(xmlHttpReg.responseText.includes("success")){
                                     alert("操作成功");
                                     parent.reloadData();
                                     layer.closeAll();
-                                } else alert("操作失败！");
+                                }
+                                else alert("操作失败！");
 
                             }
                         }
@@ -395,6 +357,7 @@
 
             } else if (obj.event === 'delete') {
                 layer.confirm('真的删除么', function (index) {
+                    obj.del();
                     var xmlHttpReg1 = null;
                     if (window.ActiveXObject) {//如果是IE
 
@@ -407,7 +370,7 @@
 
                     //如果实例化成功,就调用open()方法,就开始准备向服务器发送请求
                     if (xmlHttpReg1 != null) {
-                        xmlHttpReg1.open("GET", "DeleteOrders?id=" + data.id + "&product=" + data.product_id + "&amount=" + data.using_stock, true);
+                        xmlHttpReg1.open("GET", "DeleteOrders?id=" + data.id, true);
                         xmlHttpReg1.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                         xmlHttpReg1.onreadystatechange = doResult; //设置回调函数
                         xmlHttpReg1.send();
@@ -425,11 +388,12 @@
 
                             if (xmlHttpReg1.status === 200) {//200代表执行成功
                                 //将xmlHttpReg.responseText的值赋给ID为resText的元素
-                                if (xmlHttpReg1.responseText.includes("success")) {
+                                if(xmlHttpReg1.responseText.includes("success")){
                                     alert("操作成功");
                                     parent.reloadData();
                                     layer.closeAll();
-                                } else alert("操作失败！");
+                                }
+                                else alert("操作失败！");
 
                             }
                         }
@@ -438,12 +402,34 @@
 
                     layer.close(index);
                 });
-            } else if (obj.event === 'print') {
-                window.open('manage/print_table.html?id=' + data.id);
+            }else if (obj.event === 'print') {
+                window.open('manage/print_table.html?id='+data.id);
 
                 return false;
 
-            } else if (obj.event === 'bxd') {
+            }else if (obj.event === 'bxd') {
+
+                var content = miniPage.getHrefContent('manage/bxd.html');
+                var openWH = miniPage.getOpenWidthHeight();
+                layui.data('curr_id', {
+                    key: 'id'
+                    , value: data.id
+                });
+                var index = layer.open({
+                    title: '补下单',
+                    type: 1,
+                    shade: 0.2,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: [openWH[0] + 'px', openWH[1] + 'px'],
+                    offset: [openWH[2] + 'px', openWH[3] + 'px'],
+                    content: content,
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+            }else if (obj.event === 'bxd') {
 
                 var content = miniPage.getHrefContent('manage/bxd.html');
                 var openWH = miniPage.getOpenWidthHeight();
@@ -487,7 +473,7 @@
                     layer.full(index);
                 });
                 return false;
-            } else if (obj.event === 'abort') {
+            }else if (obj.event === 'abort') {
                 layer.confirm('真的终止生产吗', function (index) {
                     var xmlHttpReg1 = null;
                     if (window.ActiveXObject) {//如果是IE
@@ -537,17 +523,10 @@
 
         })
 
-
-
-    })
-    function reloadData() {
+    });
+    function reloadData(){
         //当前页的刷新
         var $ = layui.jquery;
-        $("#refresh").click();
-    }
+        $("#refresh").click();}
+
 </script>
-<style >
-    .layui-form-item{
-        flex: 1;
-    }
-</style>

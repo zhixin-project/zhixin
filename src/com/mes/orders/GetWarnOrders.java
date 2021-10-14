@@ -1,6 +1,7 @@
 package com.mes.orders;
 
 
+import com.alibaba.fastjson.JSON;
 import com.mes.manage.GetLogin;
 import tools.dbConnector;
 import tools.rsToJSON;
@@ -19,16 +20,17 @@ import java.sql.ResultSet;
 /**
  * @author 10626
  */
-@WebServlet("/FinishOrders")
-public class FinishOrders extends HttpServlet {
+@WebServlet("/GetWarnOrders")
+public class GetWarnOrders extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FinishOrders() {
+    public GetWarnOrders() {
         super();
     }
+
     @Override
     public void init() throws ServletException {
 
@@ -38,51 +40,34 @@ public class FinishOrders extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/json; charset=utf-8");
         PrintWriter out = response.getWriter();
-        if(!GetLogin.getStat(request,response)){
+        if (!GetLogin.getStat(request, response)) {
             out.print(rsToJSON.getErrorNoLogin());
             return;
         }
-        request.setCharacterEncoding("utf-8");
-
+        JSON json = null;
         try {
             new dbConnector();
             Connection connect = dbConnector.getConnection();
             String sql;
-            if(Integer.parseInt(request.getParameter("fhsl"))==0){
-                sql = "UPDATE `orders` SET `curr_step`='100', `total_step`='100', `finished`='1', `actual_ship`=?  WHERE (`custom_id`=?)";
-            }else {
-                sql = "UPDATE `orders` SET`finished`='1', `actual_ship`=?  WHERE (`custom_id`=?)";
-            }
-            PreparedStatement ps = connect.prepareStatement(sql);
-            ps.setInt(1, Integer.parseInt(request.getParameter("fhsl")));
-            ps.setString(2, request.getParameter("custom_id"));
-            ps.executeUpdate();
+            PreparedStatement ps;
+            ResultSet rs;
 
-            sql="SELECT `product_id` FROM orders WHERE id=?";
+            sql = "SELECT * FROM orders where id in (SELECT id FROM (SELECT id,max(finished_time) t from processes GROUP BY id) a WHERE DATEDIFF(now(),a.t)>=3); ";
             ps = connect.prepareStatement(sql);
-            ps.setString(1, request.getParameter("id"));
-            ResultSet rs=ps.executeQuery();
-            rs.next();
-            int productId=rs.getInt(1);
-
-
-            sql="UPDATE `products` SET `kucun`=kucun+? WHERE (`id`=?)";
-            ps = connect.prepareStatement(sql);
-            ps.setInt(1, Integer.parseInt(request.getParameter("jksl"))); // 进库数量
-            ps.setInt(2, productId);
-            ps.executeUpdate();
-
-
+            rs = ps.executeQuery();
+            json = rsToJSON.resultSetToJSON(rs, Integer.parseInt(request.getParameter("page")), Integer.parseInt(request.getParameter("limit")));
             // 输出数据
             out = response.getWriter();
 
-            out.println("success");
+            out.println(json);
             // 完成后关闭
+            rs.close();
             ps.close();
             connect.close();
-        }catch (Exception e) {
-            out.print("fail");
-            e.printStackTrace(); }
+        } catch (Exception e) {
+            out.print(rsToJSON.getError());
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -36,7 +36,9 @@
 
         <script type="text/html" id="currentTableBar">
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="details">流程</a>
-<!--            {{#  if(d.used ==='0'){ }}-->
+            <a class="layui-btn layui-btn-xs layui-btn-normal  data-count-edit" lay-event="update">修改</a>
+
+            <!--            {{#  if(d.used ==='0'){ }}-->
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 <!--            {{#  } }}-->
         </script>
@@ -119,7 +121,7 @@
                 {field: 'yanmo', minWidth: 120, title: '研磨', sort: true},
                 {field: 'paoguang', minWidth: 120, title: '抛光', sort: true},
                 {field: 'shangyou', minWidth: 120, title: '上油', sort: true},
-                {minWidth: 120, title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center", fixed: 'right'}
+                {title: '操作', minWidth: 200, toolbar: '#currentTableBar', align: "center", fixed: 'right'}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
             limit: 15,
@@ -131,6 +133,7 @@
          * toolbar事件监听
          */
         table.on('toolbar(currentTableFilter)', function (obj) {
+            console.log('obj',obj)
             if (obj.event === 'add') {   // 监听添加操作
                 var content = miniPage.getHrefContent('manage/add_product.html');
                 var openWH = miniPage.getOpenWidthHeight();
@@ -206,7 +209,8 @@
 
                     layer.close(index);
                 });
-            }else if (obj.event === 'details') {
+            }
+            else if (obj.event === 'details') {
 
                 var content = miniPage.getHrefContent('manage/product_detail.html');
                 var openWH = miniPage.getOpenWidthHeight();
@@ -228,6 +232,25 @@
                     layer.full(index);
                 });
                 return false;}
+            else if(obj.event==='update'){
+                console.log('update')
+                var content = miniPage.getHrefContent('manage/update_product.html');
+                var openWH = miniPage.getOpenWidthHeight();
+
+                var index = layer.open({
+                    title: '修改产品',
+                    type: 1,
+                    shade: 0.2,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: [openWH[0] + 'px', openWH[1] + 'px'],
+                    offset: [openWH[2] + 'px', openWH[3] + 'px'],
+                    content: content,
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+            }
         });
 
     });

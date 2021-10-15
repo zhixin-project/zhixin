@@ -24,43 +24,47 @@
     <style id="layuimini-bg-color">
     </style>
     <script>
+        function $ajaxIo(url,data,callback,met='get',){
+            var xmlHttpReg1 = null;
+            if (window.ActiveXObject) {//如果是IE
 
-        var xmlHttpReg1 = null;
-        if (window.ActiveXObject) {//如果是IE
+                xmlHttpReg1 = new ActiveXObject("Microsoft.XMLHTTP");
 
-            xmlHttpReg1 = new ActiveXObject("Microsoft.XMLHTTP");
+            } else if (window.XMLHttpRequest) {
 
-        } else if (window.XMLHttpRequest) {
-
-            xmlHttpReg1 = new XMLHttpRequest(); //实例化一个xmlHttpReg
-        }
-
-        //如果实例化成功,就调用open()方法,就开始准备向服务器发送请求
-        if (xmlHttpReg1 != null) {
-            xmlHttpReg1.open("GET", "GetLogin", true);
-            xmlHttpReg1.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xmlHttpReg1.onreadystatechange = doResult; //设置回调函数
-            xmlHttpReg1.send();
-
-        }
-
-        //回调函数
-        //一旦readyState的值改变,将会调用这个函数,readyState=4表示完成相应
-
-        //设定函数doResult()
-        function doResult() {
-
-            if (xmlHttpReg1.readyState === 4) {//4代表执行完成
-                if (xmlHttpReg1.status === 200) {//200代表执行成功
-                    //将xmlHttpReg.responseText的值赋给ID为resText的元素
-                    //alert(xmlHttpReg.responseText);
-                    if (xmlHttpReg1.responseText.includes("false")) {
-                        window.location.href = "login.html";
-                    }
-                }
+                xmlHttpReg1 = new XMLHttpRequest(); //实例化一个xmlHttpReg
             }
 
+            //如果实例化成功,就调用open()方法,就开始准备向服务器发送请求
+            if (xmlHttpReg1 != null) {
+                xmlHttpReg1.open(met, url+(data? ('?'+data):''), true);
+                xmlHttpReg1.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlHttpReg1.onreadystatechange = doResult; //设置回调函数
+                console.log('JSON.stringify(data)',JSON.stringify(data))
+                xmlHttpReg1.send(data);
+            }
+
+            //回调函数
+            //一旦readyState的值改变,将会调用这个函数,readyState=4表示完成相应
+
+            //设定函数doResult()
+            function doResult() {
+
+                if (xmlHttpReg1.readyState === 4) {//4代表执行完成
+                    if (xmlHttpReg1.status === 200) {//200代表执行成功
+                        callback && callback(xmlHttpReg1.response,xmlHttpReg1.responseText)
+                        //将xmlHttpReg.responseText的值赋给ID为resText的元素
+                        //alert(xmlHttpReg.responseText);
+                    }
+                }
+
+            }
         }
+        window.$ajaxIo('/GetLogin','',function (res,rest){
+            if(rest.includes('false')){
+                window.location.href='login.html'
+            }
+        },'get')
     </script>
 
 </head>

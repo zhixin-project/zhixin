@@ -10,6 +10,7 @@
         <entry key="file://$PROJECT_DIR$/web/manage/orders_table.html" value="file://$PROJECT_DIR$/web/manage" />
         <entry key="file://$PROJECT_DIR$/web/manage/orders_unfinished_table.html" value="file://$PROJECT_DIR$/web/manage" />
         <entry key="file://$PROJECT_DIR$/web/manage/print_table.html" value="file://$PROJECT_DIR$/web/manage" />
+        <entry key="file://$PROJECT_DIR$/web/manage/products_table.html" value="file://$PROJECT_DIR$/web/manage" />
         <entry key="file://$PROJECT_DIR$/web/worker/index.html" value="file://$PROJECT_DIR$/web/worker" />
       </map>
     </option>

@@ -11,7 +11,7 @@
             <legend>修改产品</legend>
         </fieldset>
 
-        <form method="post" class="layui-form" action="/AddOrders">
+        <form class="layui-form" >
             <div class="layui-form-item">
                 <label class="layui-form-label">型号</label>
                 <div class="layui-input-block">
@@ -33,7 +33,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">库存</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="kucun" id="库存" lay-verify="date"
+                            <input type="text" name="kucun" id="库存"
                                    placeholder=""
                                    autocomplete="off" class="layui-input">
                         </div>
@@ -44,7 +44,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">毛板</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="maoban" id="maoban" lay-verify="date"
+                        <input type="text" name="maoban" id="maoban"
                                placeholder=""
                                autocomplete="off" class="layui-input">
                     </div>
@@ -62,49 +62,49 @@
 
                     <label class="layui-form-label">材质</label>
                     <div class="layui-input-block">
-                        <input type="text" name="材质"
+                        <input type="text" name="caizhi"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label">投料</label>
+                    <label class="layui-form-label">标准</label>
                     <div class="layui-input-block">
-                        <input type="text" name="touliao"
+                        <input type="text" name="stantard"
                                placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label">使用库存</label>
+                    <label class="layui-form-label">剪板</label>
                     <div class="layui-input-block">
-                        <input type="number" name="reduce" lay-verify="required|number" lay-reqtext="必填项"
-                               placeholder="请输入" autocomplete="off" class="layui-input" value="0">
+                        <input type="text" name="jianban"
+                               placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
 
 
                 <div class="layui-form-item">
 
-                    <label class="layui-form-label">需求数量</label>
+                    <label class="layui-form-label">落料</label>
                     <div class="layui-input-block">
-                        <input type="number" name="amount" lay-verify="required|number" lay-reqtext="必填项"
+                        <input type="text" name="luoliao"
                                placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <div class="layui-form-item">
-                        <label class="layui-form-label">备注</label>
+                        <label class="layui-form-label">冲油槽</label>
                         <div class="layui-input-block">
-                            <input type="text" name="beizhu" autocomplete="off" placeholder="请输入备注"
+                            <input type="text" name="chongyoucao" autocomplete="off" placeholder="请输入备注"
                                    class="layui-input">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
                         <div class="layui-input-block">
-                            <button type='submit' class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                            <button type='button' class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
                             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                         </div>
                     </div>
@@ -167,48 +167,8 @@
         form.on('submit(demo1)', function (data) {
             // layer.alert(JSON.stringify(data.field), {
             //     title: '最终的提交信息'
-            // })
-            var xmlHttpReg = null;
-            if (window.ActiveXObject) {//如果是IE
-
-                xmlHttpReg = new ActiveXObject("Microsoft.XMLHTTP");
-
-            } else if (window.XMLHttpRequest) {
-
-                xmlHttpReg = new XMLHttpRequest(); //实例化一个xmlHttpReg
-            }
-
-            //如果实例化成功,就调用open()方法,就开始准备向服务器发送请求
-            if (xmlHttpReg != null) {
-                xmlHttpReg.open("POST", "AddOrders", true);
-                xmlHttpReg.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xmlHttpReg.onreadystatechange = doResult; //设置回调函数
-                xmlHttpReg.send(JSON.stringify(data.field));
-            }
-
-            //回调函数
-            //一旦readyState的值改变,将会调用这个函数,readyState=4表示完成相应
-
-            //设定函数doResult()
-            function doResult() {
-
-                if (xmlHttpReg.readyState === 4) {//4代表执行完成
-
-
-                    if (xmlHttpReg.status === 200) {//200代表执行成功
-                        //将xmlHttpReg.responseText的值赋给ID为resText的元素
-                        if (xmlHttpReg.responseText.includes("success")) {
-                            alert("操作成功");
-                            parent.reloadData();
-                            layer.closeAll();
-                        } else alert("操作失败！" + xmlHttpReg.responseText);
-
-                    }
-                }
-
-            }
-
-            return false;
+            // }
+            parent.callback(data.field)
         });
 
     });

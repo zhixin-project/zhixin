@@ -13,10 +13,11 @@
                         <label class="layui-form-label">产品搜索</label>
                         <div class="layui-input-inline">
                             <select name="product_id" id="product_id" lay-verify="required" lay-search="" >
-
                             </select>
                         </div>
-
+                        <div class="layui-input-inline">
+                            <button type="reset" class="layui-btn" >重置</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -47,18 +48,33 @@
 </div>
 
 <script>
+    var curdata={}
+    var producttable=null
+    function callback(data){
+        var tdata=''
+        for(let key in data){
+            tdata+=key+'='+data[key]+'&'
+        }
+        tdata+='id='+curdata.rowId
+        window.$ajaxIo('/ResetProducts',tdata,function (res,rest) {
+            console.log(rest)
+            producttable.reload()
+        })
+    }
+
     layui.use(['form', 'table', 'miniPage', 'element'], function () {
         var $ = layui.jquery,
             form = layui.form,
             table = layui.table,
             miniPage = layui.miniPage;
+        producttable=table
         $.ajax({
             url: 'GetProducts',
             dataType: 'json',
             type: 'get',
             success: function (data) {
-                $("#product_id").empty();
-                $("#product_id").append(new Option("产品搜索", ""));
+                // $("#product_id").empty();
+                $("#product_id").append(new Option("产品搜索"));
                 console.log(data);//下面会提到这个data是什么值
                 //使用循环遍历，给下拉列表赋值
                 $.each(data.data, function (index, value) {
@@ -68,7 +84,8 @@
                         hcl='';
                     }
 
-                    $('#product_id').append(new Option("ID:"+value.id+" "+value.name + " " + value.standard + " " + value.size + " 库存:" + value.kucun+ hcl + value.houchuli + " 毛板:" + value.maoban));// 下拉菜单里添加元素
+                    // $('#product_id').append(new Option("ID:"+value.id+" "+value.name + " " + value.standard + " " + value.size + " 库存:" + value.kucun+ hcl + value.houchuli + " 毛板:" + value.maoban));// 下拉菜单里添加元素
+                    $('#product_id').append(`<option value=${value.id}>ID:${value.id} ${value.name} ${value.standard} ${value.size}库存：${value.kucun}hcl${value.houchuli}毛板：${value.maoban} <i class="layui-icon"></i></option>`)
                 });
                 layui.form.render("select");//重新渲染 固定写法
             },
@@ -132,6 +149,9 @@
         /**
          * toolbar事件监听
          */
+        form.on('submit(data-reset)',function (obj){
+            console.log('ubmit(data-reset)',obj)
+        })
         table.on('toolbar(currentTableFilter)', function (obj) {
             console.log('obj',obj)
             if (obj.event === 'add') {   // 监听添加操作
@@ -162,7 +182,9 @@
         });
 
         table.on('tool(currentTableFilter)', function (obj) {
+
             var data = obj.data;
+            curdata['rowId']=obj.data.id
             if (obj.event === 'delete') {
                 layer.confirm('真的删除么', function (index) {
                     obj.del();
@@ -236,7 +258,6 @@
                 console.log('update')
                 var content = miniPage.getHrefContent('manage/update_product.html');
                 var openWH = miniPage.getOpenWidthHeight();
-
                 var index = layer.open({
                     title: '修改产品',
                     type: 1,
@@ -250,6 +271,7 @@
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
+
             }
         });
 

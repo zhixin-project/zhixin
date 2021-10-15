@@ -1,7 +1,9 @@
 package com.mes.products;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.mes.manage.GetLogin;
+import tools.ReadAsChars;
 import tools.dbConnector;
 import tools.rsToJSON;
 
@@ -16,6 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * @author 10626
@@ -57,7 +60,6 @@ public class ResetProducts extends HttpServlet {
             new dbConnector();
             Connection connect = dbConnector.getConnection();
             String sql;
-
             sql="SELECT count(*) FROM products WHERE name =? AND standard=? AND caizhi=? AND maoban=? AND houchuli=? AND size=? AND " +
                     " jianban =? AND luoliao =? AND chongyoucao =? AND chongkong =? AND dazi =? AND zx_hg =?" +
                     "AND zx_hg_t =? AND zx_hg_z =? AND zx_zk=? AND zx_sg =? AND zx_sg_t =? AND zx_sg_z =? AND " +
@@ -94,8 +96,6 @@ public class ResetProducts extends HttpServlet {
             ps.setString(28,request.getParameter("yanmo"));
             ps.setString(29,request.getParameter("paoguang"));
             ps.setString(30,request.getParameter("shangyou"));
-
-
             ResultSet rs = ps.executeQuery();
             rs.next();
             if(rs.getInt(1)!=0){

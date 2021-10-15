@@ -53,10 +53,10 @@
     function callback(data){
         var tdata='content='
         for(let key in data){
-            tdata+=(data[key]? (key+'='+'\"'+data[key]+'\"'+' AND '):'')
+            tdata+=(data[key]? (key+'='+'\''+data[key]+'\''+' AND '):'')
         }
 
-        tdata+='id='+'\"'+curdata.rowId+'\"'
+        tdata+='id='+'\''+curdata.rowId+'\''
         console.log(tdata)
         window.$ajaxIo('/ResetProducts',tdata,function (res,rest) {
             console.log(rest)

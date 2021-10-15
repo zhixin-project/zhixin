@@ -48,10 +48,14 @@ public class DeleteOrders extends HttpServlet {
             new dbConnector();
             Connection connect = dbConnector.getConnection();
             String sql;
-            sql = "DELETE FROM `orders` WHERE (`id`=?);DELETE FROM `processes` WHERE `id`=?;";
+            sql = "DELETE FROM `orders` WHERE (`id`=?);";
             PreparedStatement ps = connect.prepareStatement(sql);
             ps.setString(1, request.getParameter("id"));
-            ps.setString(2, request.getParameter("id"));
+            ps.executeUpdate();
+
+            sql = "DELETE FROM `processes` WHERE `id`=?;";
+            ps = connect.prepareStatement(sql);
+            ps.setString(1, request.getParameter("id"));
             ps.executeUpdate();
             ReduceStock.reduce(Integer.parseInt(request.getParameter("product")),-Integer.parseInt(request.getParameter("amount")));
             // 输出数据

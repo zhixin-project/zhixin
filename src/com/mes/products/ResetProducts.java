@@ -48,6 +48,7 @@ public class ResetProducts extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("request.getParameter(\"content\")"+request.getParameter("content"));
         response.setContentType("text/json; charset=utf-8");
         PrintWriter out = response.getWriter();
         if(!GetLogin.getStat(request,response)){
@@ -150,8 +151,6 @@ public class ResetProducts extends HttpServlet {
             for(int i=0;i<process.length;i++) {
                 updateRelates(productId,Integer.parseInt(process[i]),i+1);
             }
-
-
 
             // 输出数据
 

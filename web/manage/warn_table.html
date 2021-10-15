@@ -151,38 +151,10 @@
                             return (d.percentage * 100).toFixed(2) + "%";
                         }
                     },
-                    {field: 'finish_time', width: 240, title: '完成时间', sort: true},
+                    {field: 'current_node', width: 240, title: '当前节点', sort: true},
                     {field: 'standard', width: 120, title: '标准', sort: true},
                     {field: 'required_time', width: 120, title: '交付时间', sort: true},
                     {field: 'customer', width: 120, title: '客户', sort: true},
-                    {field: 'price', title: '单价', width: 100, sort: true},
-                    {field: 'amount', title: '数量', width: 100, sort: true},
-                    {field: 'tqck', title: '提前出库', width: 100, sort: true},
-                    {field: 'actual_ship', title: '实际出库', width: 100, sort: true},
-                    {
-                        field: 'started_production', width: 80, title: '生产', sort: true,
-                        templet: function (d) {
-                            if (d.finished === 1) return '完成'
-                            else if (d.started_production === '0') {
-                                return '未开始'
-                            } else if (d.started_production === '1') {
-                                return '开始'
-                            }
-                        }
-                    },
-                    {
-                        field: 'buxiadan', width: 100, title: '补下单', sort: true,
-                        templet: function (d) {
-                            if (d.buxiadan === '0') {
-                                return '否'
-                            } else {
-                                return '是'
-                            }
-                        }
-                    },
-                    {field: 'bxdly', title: '补下单理由', width: 150, sort: true},
-                    {field: 'beizhu', title: '备注', width: 100, sort: true},
-                    {title: '操作', width: 350, toolbar: '#currentTableBar', align: "center", fixed: 'right'}
                 ]],
                 page: false,
                 skin: 'line'

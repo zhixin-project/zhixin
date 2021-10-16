@@ -43,5 +43,4 @@ public class ReadAsChars {
     }
     return sb.toString();
 }
-
 }

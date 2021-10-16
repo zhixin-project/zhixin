@@ -32,36 +32,82 @@
 
             </div>
         </script>
+        <script type="text/html" id="editDiv">
+            {{d}}
+        </script>
 
-        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
         <script type="text/html" id="currentTableBar">
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="details">流程</a>
-            <a class="layui-btn layui-btn-xs layui-btn-normal  data-count-edit" lay-event="update">修改</a>
-
-            <!--            {{#  if(d.used ==='0'){ }}-->
+<!--            <a class="layui-btn layui-btn-xs layui-btn-normal  data-count-edit" lay-event="update">修改</a>-->
+<!--            {{#  if(d.used ==='0'){ }}-->
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 <!--            {{#  } }}-->
         </script>
 
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
     </div>
 </div>
 
 <script>
-    var curdata={}
-    var producttable=null
-    function callback(data){
-        var tdata='content='
-        for(let key in data){
-            tdata+=(data[key]? (key+'='+'\''+data[key]+'\''+' AND '):'')
-        }
+    let keyMap={
+        'id':'ID',
+        'name': '型号',
+        'size':'规格',
+        'kucun':'库存',
+        'maoban':'毛板',
+        'houchuli':'后处理',
+        'caizhi':'材质',
+        'standard':'标准',
+        'jianban':'剪板',
+        'luoliao':'落料',
+        'chongyoucao':'冲油槽',
+        'chongkong':'冲孔',
+        'dazi':'打字',
+        'zx_hg':'环规',
+        'zx_hg_t':'环规_通',
+        'zx_hg_z':'环规_止',
+        'zx_sg':'塞规',
+        'zx_sg_t':'塞规_通',
+        'zx_sg_z':'塞规_止',
+        'zx_zk':'座孔',
+        'zx_bh': '壁厚',
+        'dj_wj': '外角',
+        'dj_nj': '内角',
+        'dj_gd': '高度',
+        'dj_gd_t': '高度_通',
+        'dj_gd_z': '高度_止',
+        'kkf': '开口封',
+        'fanbian': '翻边',
+        'qlb': '切/拉边',
+        'yanmo': '研磨',
+        'paoguang': '抛光',
+        'shangyou': '上油',
 
-        tdata+='id='+'\''+curdata.rowId+'\''
-        console.log(tdata)
-        window.$ajaxIo('/ResetProducts',tdata,function (res,rest) {
+    }
+    var curdata=[]
+    var producttable=null
+    function getData(){
+        return curdata;
+    }
+    function callback(data){
+        console.log('data',data)
+        // var tdata='content='
+        // for(let key in data){
+        //     tdata+=(data[key]? (key+'='+'\''+data[key]+'\''+' AND '):'')
+        // }
+        //
+        // tdata+='id='+'\''+curdata.rowId+'\''
+        // console.log(tdata)
+
+        // window.$ajaxIo('/ResetProducts',tdata,function (res,rest) {
+        //     console.log(rest)
+        //     producttable.reload()
+        // },'post')
+        window.$ajaxIo('/ResetProducts',{...data,'id':curdata.rowId},function (res,rest) {
             console.log(rest)
             producttable.reload()
-        })
+        },'POST')
     }
 
     layui.use(['form', 'table', 'miniPage', 'element'], function () {
@@ -87,7 +133,7 @@
                     }
 
                     // $('#product_id').append(new Option("ID:"+value.id+" "+value.name + " " + value.standard + " " + value.size + " 库存:" + value.kucun+ hcl + value.houchuli + " 毛板:" + value.maoban));// 下拉菜单里添加元素
-                    $('#product_id').append(`<option value=${value.id}>ID:${value.id} ${value.name} ${value.standard} ${value.size}库存：${value.kucun}hcl${value.houchuli}毛板：${value.maoban} <i class="layui-icon"></i></option>`)
+                    $('#product_id').append(`<option value=${value.id}>ID:${value.id} ${value.name} ${value.standard} ${value.size}库存：${value.kucun}hcl${value.houchuli}毛板：${value.maoban}</option>`)
                 });
                 layui.form.render("select");//重新渲染 固定写法
             },
@@ -109,37 +155,37 @@
             }],
             cols: [[
                 {field: 'id', minWidth: 120, title: 'ID', sort: true},
-                {field: 'name', minWidth: 120, minWidth: 120, title: '型号', sort: true},
-                {field: 'size', minWidth: 120, title: '规格', sort: true},
-                {field: 'kucun', minWidth: 120, title: '库存', sort: true},
-                {field: 'maoban', minWidth: 120, title: '毛板', sort: true},
-                {field: 'houchuli', minWidth: 120, title: '后处理', sort: true},
-                {field: 'caizhi', minWidth: 120, title: '材质', sort: true},
-                {field: 'standard', minWidth: 120, title: '标准', sort: true},
-                {field: 'jianban', minWidth: 120, title: '剪板', sort: true},
-                {field: 'luoliao', minWidth: 120, title: '落料', sort: true},
-                {field: 'chongyoucao', minWidth: 120, title: '冲油槽', sort: true},
-                {field: 'chongkong', minWidth: 120, title: '冲孔', sort: true},
-                {field: 'dazi', minWidth: 120, title: '打字', sort: true},
-                {field: 'zx_hg', minWidth: 120, title: '环规', sort: true},
-                {field: 'zx_hg_t', minWidth: 120, title: '环规_通', sort: true},
-                {field: 'zx_hg_z', minWidth: 120, title: '环规_止', sort: true},
-                {field: 'zx_zk', minWidth: 120, title: '座孔', sort: true},
-                {field: 'zx_sg', minWidth: 120, title: '塞规', sort: true},
-                {field: 'zx_sg_t', minWidth: 120, title: '塞规_通', sort: true},
-                {field: 'zx_sg_z', minWidth: 120, title: '塞规_止', sort: true},
-                {field: 'zx_bh', minWidth: 120, title: '壁厚', sort: true},
-                {field: 'dj_wj', minWidth: 120, title: '外角', sort: true},
+                {field: 'name', minWidth: 120, title: '型号', sort: true,},
+                {field: 'size', minWidth: 120, title: '规格', sort: true,},
+                {field: 'kucun', minWidth: 120, title: '库存', sort: true,},
+                {field: 'maoban', minWidth: 120, title: '毛板', sort: true,},
+                {field: 'houchuli', minWidth: 120, title: '后处理', sort: true,},
+                {field: 'caizhi', minWidth: 120, title: '材质', sort: true,},
+                {field: 'standard', minWidth: 120, title: '标准', sort: true,},
+                {field: 'jianban', minWidth: 120, title: '剪板', sort: true,},
+                {field: 'luoliao', minWidth: 120, title: '落料', sort: true,},
+                {field: 'chongyoucao', minWidth: 120, title: '冲油槽', sort: true,},
+                {field: 'chongkong', minWidth: 120, title: '冲孔', sort: true,},
+                {field: 'dazi', minWidth: 120, title: '打字', sort: true,},
+                {field: 'zx_hg', minWidth: 120, title: '环规', sort: true,},
+                {field: 'zx_hg_t', minWidth: 120, title: '环规_通', sort: true,},
+                {field: 'zx_hg_z', minWidth: 120, title: '环规_止', sort: true,},
+                {field: 'zx_zk', minWidth: 120, title: '座孔', sort: true,},
+                {field: 'zx_sg', minWidth: 120, title: '塞规', sort: true,},
+                {field: 'zx_sg_t', minWidth: 120, title: '塞规_通', sort: true,},
+                {field: 'zx_sg_z', minWidth: 120, title: '塞规_止', sort: true,},
+                {field: 'zx_bh', minWidth: 120, title: '壁厚', sort: true,},
+                {field: 'dj_wj', minWidth: 120, title: '外角', sort: true,},
                 {field: 'dj_nj', minWidth: 120, title: '内角', sort: true},
-                {field: 'dj_gd', minWidth: 120, title: '高度', sort: true},
-                {field: 'dj_gd_t', minWidth: 120, title: '高度_通', sort: true},
-                {field: 'dj_gd_z', minWidth: 120, title: '高度_止', sort: true},
-                {field: 'kkf', minWidth: 120, title: '开口封', sort: true},
-                {field: 'fanbian', minWidth: 120, title: '翻边', sort: true},
-                {field: 'qlb', minWidth: 120, title: '切/拉边', sort: true},
-                {field: 'yanmo', minWidth: 120, title: '研磨', sort: true},
-                {field: 'paoguang', minWidth: 120, title: '抛光', sort: true},
-                {field: 'shangyou', minWidth: 120, title: '上油', sort: true},
+                {field: 'dj_gd', minWidth: 120, title: '高度', sort: true,},
+                {field: 'dj_gd_t', minWidth: 120, title: '高度_通', sort: true,},
+                {field: 'dj_gd_z', minWidth: 120, title: '高度_止', sort: true,},
+                {field: 'kkf', minWidth: 120, title: '开口封', sort: true,},
+                {field: 'fanbian', minWidth: 120, title: '翻边', sort: true,},
+                {field: 'qlb', minWidth: 120, title: '切/拉边', sort: true,},
+                {field: 'yanmo', minWidth: 120, title: '研磨', sort: true,},
+                {field: 'paoguang', minWidth: 120, title: '抛光', sort: true,},
+                {field: 'shangyou', minWidth: 120, title: '上油', sort: true,},
                 {title: '操作', minWidth: 200, toolbar: '#currentTableBar', align: "center", fixed: 'right'}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
@@ -184,9 +230,12 @@
         });
 
         table.on('tool(currentTableFilter)', function (obj) {
+            console.log(obj)
 
             var data = obj.data;
-            curdata['rowId']=obj.data.id
+
+
+            console.log('curdata',curdata)
             if (obj.event === 'delete') {
                 layer.confirm('真的删除么', function (index) {
                     obj.del();
@@ -257,7 +306,16 @@
                 });
                 return false;}
             else if(obj.event==='update'){
-                console.log('update')
+                curdata=[]
+                console.log(data)
+                for(let key in data){
+                    console.log('key',key);
+                    (key!=='used'&&key!=='id')&&curdata.push({'key':keyMap[key],'value':data[key],'oldkey':key})
+                }
+                curdata.sort(function (a,b){
+                    return a.oldkey>b.oldkey;
+                })
+                console.log('updatecurdata',curdata)
                 var content = miniPage.getHrefContent('manage/update_product.html');
                 var openWH = miniPage.getOpenWidthHeight();
                 var index = layer.open({
@@ -277,8 +335,13 @@
             }
         });
 
-    });
+        //监听表格编译事件
+        table.on('edit(currentTableFilter)',function (obj){
+            var value =obj.value
 
+            layer.msg('没有此工序')
+        })
+    });
     function reloadData() {
         //当前页的刷新
         var $ = layui.jquery;

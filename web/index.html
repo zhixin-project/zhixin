@@ -37,11 +37,11 @@
 
             //如果实例化成功,就调用open()方法,就开始准备向服务器发送请求
             if (xmlHttpReg1 != null) {
-                xmlHttpReg1.open(met, url+(data? ('?'+data):''), true);
-                xmlHttpReg1.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlHttpReg1.open(met, url, true);
+                // xmlHttpReg1.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                console.log('JSON.stringify(data)',JSON.stringify(data));
+                xmlHttpReg1.send((data? (JSON.stringify(data)):''));
                 xmlHttpReg1.onreadystatechange = doResult; //设置回调函数
-                console.log('JSON.stringify(data)',JSON.stringify(data))
-                xmlHttpReg1.send(data);
             }
 
             //回调函数

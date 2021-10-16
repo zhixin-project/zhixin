@@ -64,6 +64,14 @@ public class GetUnfinishedOrders extends HttpServlet {
                 json = rsToJSON.resultSetToJSON(rs);
 
             }
+            else if ("size".equals(request.getParameter("search"))) {
+                sql = "SELECT *,IFNULL(curr_step/total_step,0) as percentage FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE `size`LIKE ? AND finished=0 ORDER BY orders.id DESC";
+                ps = connect.prepareStatement(sql);
+                ps.setString(1, "%" + request.getParameter("size") + "%");
+                rs = ps.executeQuery();
+                json = rsToJSON.resultSetToJSON(rs);
+
+            }
             else{
                 sql = "SELECT *,IFNULL(curr_step/total_step,0) as percentage FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE finished=0 ORDER BY required_time";
                 ps = connect.prepareStatement(sql);

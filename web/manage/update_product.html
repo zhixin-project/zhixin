@@ -10,111 +10,116 @@
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
             <legend>修改产品</legend>
         </fieldset>
-
-        <form class="layui-form" >
-            <div class="layui-form-item">
-                <label class="layui-form-label">型号</label>
-                <div class="layui-input-block">
-                    <input type="text" name="name"  autocomplete="off"
-                           class="layui-input">
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">规格</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="size" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-
-                    <div class="layui-inline">
-                        <label class="layui-form-label">库存</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="kucun" id="库存"
-                                   placeholder=""
-                                   autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="layui-inline">
-                    <label class="layui-form-label">毛板</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="maoban" id="maoban"
-                               placeholder=""
-                               autocomplete="off" class="layui-input">
-                    </div>
-
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">后处理</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="houchuli"
-                               placeholder="请输入" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-
-                    <label class="layui-form-label">材质</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="caizhi"
-                               autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">标准</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="stantard"
-                               placeholder="请输入" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">剪板</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="jianban"
-                               placeholder="请输入" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-
-
-                <div class="layui-form-item">
-
-                    <label class="layui-form-label">落料</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="luoliao"
-                               placeholder="请输入" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">冲油槽</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="chongyoucao" autocomplete="off" placeholder="请输入"
-                                   class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
-                            <button type='button' class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
-                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <form method="post" name="form1" id="form1" class="layui-form">
+            <button type="submit" lay-submit lay-filter="demo1" class="layui-btn">提交</button>
+            <button type="reset" class="layui-btn layui-btn-normal">重置</button>
         </form>
+
+<!--        <form class="layui-form" >-->
+<!--            <div class="layui-form-item">-->
+<!--                <label class="layui-form-label">型号</label>-->
+<!--                <div class="layui-input-block">-->
+<!--                    <input type="text" name="name"  autocomplete="off"-->
+<!--                           class="layui-input">-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="layui-form-item">-->
+<!--                <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">规格</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="text" name="size" autocomplete="off" class="layui-input">-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="layui-form-item">-->
+
+<!--                    <div class="layui-inline">-->
+<!--                        <label class="layui-form-label">库存</label>-->
+<!--                        <div class="layui-input-inline">-->
+<!--                            <input type="text" name="kucun" id="库存"-->
+<!--                                   placeholder=""-->
+<!--                                   autocomplete="off" class="layui-input">-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+
+<!--                <div class="layui-inline">-->
+<!--                    <label class="layui-form-label">毛板</label>-->
+<!--                    <div class="layui-input-inline">-->
+<!--                        <input type="text" name="maoban" id="maoban"-->
+<!--                               placeholder=""-->
+<!--                               autocomplete="off" class="layui-input">-->
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--                <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">后处理</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="text" name="houchuli"-->
+<!--                               placeholder="请输入" autocomplete="off" class="layui-input">-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="layui-form-item">-->
+
+<!--                    <label class="layui-form-label">材质</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="text" name="caizhi"-->
+<!--                               autocomplete="off" class="layui-input">-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">标准</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="text" name="stantard"-->
+<!--                               placeholder="请输入" autocomplete="off" class="layui-input">-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="layui-form-item">-->
+<!--                    <label class="layui-form-label">剪板</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="text" name="jianban"-->
+<!--                               placeholder="请输入" autocomplete="off" class="layui-input">-->
+<!--                    </div>-->
+<!--                </div>-->
+
+
+<!--                <div class="layui-form-item">-->
+
+<!--                    <label class="layui-form-label">落料</label>-->
+<!--                    <div class="layui-input-block">-->
+<!--                        <input type="text" name="luoliao"-->
+<!--                               placeholder="请输入" autocomplete="off" class="layui-input">-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="layui-form-item">-->
+<!--                    <div class="layui-form-item">-->
+<!--                        <label class="layui-form-label">冲油槽</label>-->
+<!--                        <div class="layui-input-block">-->
+<!--                            <input type="text" name="chongyoucao" autocomplete="off" placeholder="请输入"-->
+<!--                                   class="layui-input">-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="layui-form-item">-->
+<!--                        <div class="layui-input-block">-->
+<!--                            <button type='button' class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>-->
+<!--                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
 
     </div>
 </div>
 <script charset="UTF-8">
+    let curdata=parent.getData()
     layui.use(['form', 'layedit', 'laydate'], function () {
         var form = layui.form
             , layer = layui.layer
@@ -124,14 +129,17 @@
         /**
          * 初始化表单，要加上，不然刷新部分组件可能会不加载
          */
-        form.render();
+
 
         //日期
         laydate.render({
             elem: '#required_time'
         });
         var $ = layui.jquery
-
+        for(let i in curdata){
+            $("#form1").appendChild(`${curdata[i].key}: <input type="text" class="layui-input" value="${curdata[i].value}"/>`)
+        }
+        form.render();
         $.ajax({
             url: 'GetProducts',
             dataType: 'json',

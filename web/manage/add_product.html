@@ -335,7 +335,7 @@
         form.render();
         form.on('submit(demo1)', function (data) {
             var $ = layui.jquery;
-
+            console.log($('#form1').serialize())
             $.ajax({
                     type: "POST",
                     url: "/AddProducts",//提交到后台文件

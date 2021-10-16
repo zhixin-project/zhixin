@@ -6,6 +6,7 @@ import com.mes.manage.GetLogin;
 import tools.ReadAsChars;
 import tools.dbConnector;
 import tools.rsToJSON;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +19,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -48,8 +50,11 @@ public class ResetProducts extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("request.getParameter(\"content\")"+request.getParameter("content"));
+//        System.out.println("request.getParameter(\"content\")"+request.getParameter("content"));
         response.setContentType("text/json; charset=utf-8");
+        String js = ReadAsChars.read(request);
+
+        JSONObject json = JSONObject.parseObject(js);
         PrintWriter out = response.getWriter();
         if(!GetLogin.getStat(request,response)){
             out.print(rsToJSON.getErrorNoLogin());
@@ -61,91 +66,35 @@ public class ResetProducts extends HttpServlet {
             new dbConnector();
             Connection connect = dbConnector.getConnection();
             String sql;
-            sql="SELECT count(*) FROM products WHERE name =? AND standard=? AND caizhi=? AND maoban=? AND houchuli=? AND size=? AND " +
-                    " jianban =? AND luoliao =? AND chongyoucao =? AND chongkong =? AND dazi =? AND zx_hg =?" +
-                    "AND zx_hg_t =? AND zx_hg_z =? AND zx_zk=? AND zx_sg =? AND zx_sg_t =? AND zx_sg_z =? AND " +
-                    "zx_bh =? AND dj_wj=? AND dj_nj=? AND dj_gd=? AND dj_gd_t=? AND dj_gd_z=? AND kkf =? AND fanbian=? AND " +
-                    "qlb =? AND yanmo =? AND paoguang =? AND shangyou = ?;";
+            Iterator itr=json.entrySet().iterator();
+            sql="SELECT count(*) FROM products WHERE ";
+            while (itr.hasNext()){
+                Map.Entry entry = (Map.Entry) itr.next();
+                sql+=entry.getKey().toString()+"=\'"+entry.getValue().toString() +"\' AND ";
+            }
+            String reg=" AND $";
+            sql=Pattern.matches(reg,sql)? sql.substring(sql.length()-5)+";":sql;
             PreparedStatement ps = connect.prepareStatement(sql);
-            ps.setString(1,request.getParameter("name"));
-            ps.setString(2, request.getParameter("standard"));
-            ps.setString(3,request.getParameter("caizhi"));
-            ps.setString(4, request.getParameter("maoban"));
-            ps.setString(5, request.getParameter("houchuli"));
-            ps.setString(6, request.getParameter("size"));
-            ps.setString(7, request.getParameter("jianban"));
-            ps.setString(8,request.getParameter("luoliao"));
-            ps.setString(9,request.getParameter("chongyoucao"));
-            ps.setString(10,request.getParameter("chongkong"));
-            ps.setString(11,request.getParameter("dazi"));
-            ps.setString(12,request.getParameter("zx_hg"));
-            ps.setString(13,request.getParameter("zx_hg_t"));
-            ps.setString(14,request.getParameter("zx_hg_z"));
-            ps.setString(15,request.getParameter("zx_zk"));
-            ps.setString(16,request.getParameter("zx_sg"));
-            ps.setString(17,request.getParameter("zx_sg_t"));
-            ps.setString(18,request.getParameter("zx_sg_z"));
-            ps.setString(19,request.getParameter("zx_bh"));
-            ps.setString(20,request.getParameter("dj_wj"));
-            ps.setString(21,request.getParameter("dj_nj"));
-            ps.setString(22,request.getParameter("dj_gd"));
-            ps.setString(23,request.getParameter("dj_gd_t"));
-            ps.setString(24,request.getParameter("dj_gd_z"));
-            ps.setString(25,request.getParameter("kkf"));
-            ps.setString(26,request.getParameter("fanbian"));
-            ps.setString(27,request.getParameter("qlb"));
-            ps.setString(28,request.getParameter("yanmo"));
-            ps.setString(29,request.getParameter("paoguang"));
-            ps.setString(30,request.getParameter("shangyou"));
             ResultSet rs = ps.executeQuery();
             rs.next();
-            if(rs.getInt(1)!=0){
+            int pNum=rs.getInt(1);
+            if(pNum!=0){
                 out.print("产品重复");
                 return;
             }
 
             int productId=Integer.parseInt(request.getParameter("product_id"));
-
-
-            sql = "UPDATE products SET  name =?,size=?,standard=?, jianban =? ,luoliao =? ,chongyoucao =? ,chongkong =? , dazi =? , zx_hg =?" +
-                    ", zx_hg_t =? , zx_hg_z =? , zx_zk=? , zx_sg =? , zx_sg_t =? , zx_sg_z =? ," +
-                    "zx_bh =? , dj_wj=? , dj_nj=? , dj_gd=? , dj_gd_t=? , dj_gd_z=? , kkf =? , fanbian=? ," +
-                    "qlb =? , yanmo =? , paoguang =? , shangyou = ?,houchuli=?,caizhi=?,kucun=?,maoban=? WHERE id=?;";
+            Iterator itr2=json.entrySet().iterator();
+            sql="UPDATE products SET ";
+            while (itr2.hasNext()){
+                Map.Entry entry = (Map.Entry) itr2.next();
+                sql+=entry.getKey().toString()+"=\'"+entry.getValue().toString() +"\' , ";
+            }
+            reg=" , $";
+            sql=Pattern.matches(reg,sql)? sql.substring(sql.length()-3):sql;
+            sql+=" where id=\'"+productId+"\';";
             ps = connect.prepareStatement(sql);
-            ps.setString(1,request.getParameter("name"));
-            ps.setString(2, request.getParameter("size"));
-            ps.setString(3, request.getParameter("standard"));
-            ps.setString(4, request.getParameter("jianban"));
-            ps.setString(5,request.getParameter("luoliao"));
-            ps.setString(6,request.getParameter("chongyoucao"));
-            ps.setString(7,request.getParameter("chongkong"));
-            ps.setString(8,request.getParameter("dazi"));
-            ps.setString(9,request.getParameter("zx_hg"));
-            ps.setString(10,request.getParameter("zx_hg_t"));
-            ps.setString(11,request.getParameter("zx_hg_z"));
-            ps.setString(12,request.getParameter("zx_zk"));
-            ps.setString(13,request.getParameter("zx_sg"));
-            ps.setString(14,request.getParameter("zx_sg_t"));
-            ps.setString(15,request.getParameter("zx_sg_z"));
-            ps.setString(16,request.getParameter("zx_bh"));
-            ps.setString(17,request.getParameter("dj_wj"));
-            ps.setString(18,request.getParameter("dj_nj"));
-            ps.setString(19,request.getParameter("dj_gd"));
-            ps.setString(20,request.getParameter("dj_gd_t"));
-            ps.setString(21,request.getParameter("dj_gd_z"));
-            ps.setString(22,request.getParameter("kkf"));
-            ps.setString(23,request.getParameter("fanbian"));
-            ps.setString(24,request.getParameter("qlb"));
-            ps.setString(25,request.getParameter("yanmo"));
-            ps.setString(26,request.getParameter("paoguang"));
-            ps.setString(27,request.getParameter("shangyou"));
-            ps.setString(28, request.getParameter("houchuli"));
-            ps.setString(29,request.getParameter("caizhi"));
-            ps.setInt(30, Integer.parseInt(request.getParameter("kucun")));
-            ps.setString(31, request.getParameter("maoban"));
-            ps.setInt(32,productId);
             ps.executeUpdate();
-
 
             String[] process=request.getParameterValues("process");
             for(int i=0;i<process.length;i++) {

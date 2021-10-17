@@ -63,8 +63,7 @@ public class GetFinishedOrders extends HttpServlet {
                 rs = ps.executeQuery();
                 json = rsToJSON.resultSetToJSON(rs);
 
-            }
-            else{
+            } else{
                 sql = "SELECT *,IFNULL(curr_step/total_step,0) as percentage FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE finished=1 AND finish_time IS NOT NULL ORDER BY required_time";
                 ps = connect.prepareStatement(sql);
                 rs = ps.executeQuery();

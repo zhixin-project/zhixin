@@ -65,41 +65,27 @@ public class ResetProducts extends HttpServlet {
         try {
             new dbConnector();
             Connection connect = dbConnector.getConnection();
-            String sql;
-            Iterator itr=json.entrySet().iterator();
-            sql="SELECT count(*) FROM products WHERE ";
-            while (itr.hasNext()){
-                Map.Entry entry = (Map.Entry) itr.next();
-                sql+=entry.getKey().toString()+"=\'"+entry.getValue().toString() +"\' AND ";
-            }
-            String reg=" AND $";
-            sql=Pattern.matches(reg,sql)? sql.substring(sql.length()-5)+";":sql;
-            PreparedStatement ps = connect.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            int pNum=rs.getInt(1);
-            if(pNum!=0){
-                out.print("产品重复");
-                return;
-            }
-
-            int productId=Integer.parseInt(request.getParameter("product_id"));
+            int productId= -1;
+            String sql="";
             Iterator itr2=json.entrySet().iterator();
             sql="UPDATE products SET ";
             while (itr2.hasNext()){
                 Map.Entry entry = (Map.Entry) itr2.next();
+                if((!entry.getValue().toString().equals(""))  && (!entry.getKey().toString().equals("id")))
                 sql+=entry.getKey().toString()+"=\'"+entry.getValue().toString() +"\' , ";
+                if(entry.getKey().toString().equals("id")){
+                    productId=Integer.parseInt(entry.getValue().toString());
+                }
             }
-            reg=" , $";
-            sql=Pattern.matches(reg,sql)? sql.substring(sql.length()-3):sql;
+            sql=sql.substring(0,sql.length()-3);
             sql+=" where id=\'"+productId+"\';";
-            ps = connect.prepareStatement(sql);
+            PreparedStatement ps = connect.prepareStatement(sql);
             ps.executeUpdate();
 
-            String[] process=request.getParameterValues("process");
-            for(int i=0;i<process.length;i++) {
-                updateRelates(productId,Integer.parseInt(process[i]),i+1);
-            }
+//            String[] process=request.getParameterValues("process");
+//            for(int i=0;i<process.length;i++) {
+//                updateRelates(productId,Integer.parseInt(process[i]),i+1);
+//            }
 
             // 输出数据
 

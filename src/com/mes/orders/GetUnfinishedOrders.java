@@ -57,7 +57,7 @@ public class GetUnfinishedOrders extends HttpServlet {
 
             }
             else if ("custom_id".equals(request.getParameter("search"))) {
-                sql = "SELECT *,IFNULL(curr_step/total_step,0) as percentage FROM `orders` LEFT JOIN `products` on orders.product_id=products.id WHERE `custom_id`LIKE ? AND finished=0 ORDER BY orders.id DESC";
+                sql = "SELECT *,IFNULL(curr_step/total_step,0) as percentage FROM orders LEFT JOIN products on orders.product_id=products.id WHERE custom_id LIKE ? AND finished=0 ORDER BY orders.id DESC;";
                 ps = connect.prepareStatement(sql);
                 ps.setString(1, "%" + request.getParameter("custom_id") + "%");
                 rs = ps.executeQuery();

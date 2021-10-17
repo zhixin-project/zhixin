@@ -10,116 +10,329 @@
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
             <legend>修改产品</legend>
         </fieldset>
-        <form method="post" name="form1" id="form1" class="layui-form">
-            <button type="submit" lay-submit lay-filter="demo1" class="layui-btn">提交</button>
-            <button type="reset" class="layui-btn layui-btn-normal">重置</button>
+<!--        <form method="post" name="form1" id="form1" class="layui-form">-->
+<!--            <button type="submit" lay-submit lay-filter="demo1" class="layui-btn">提交</button>-->
+<!--            <button type="reset" class="layui-btn layui-btn-normal">重置</button>-->
+<!--        </form>-->
+
+        <form method="post" name="form1" id="form1" class="layui-form" action="/AddProducts">
+            <div class="layui-form ays-form-prev">
+                <div class="layui-row" id="2a8e-1629439311369-60320" index="3" mode="grid" style="">
+                    <div class="layui-col-md4">
+                        <div class="layui-form-item" id="69c7-1629439313425-46321" index="4" mode="input" style="">
+                            <label class="layui-form-label">型号
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="name" lay-verify="required" placeholder="" type="text" class="layui-input" autocomplete="off" id="name">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="3b8e-1629439410763-56238" index="6" mode="input" style="">
+                            <label class="layui-form-label">标准
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="standard" placeholder="" type="text" class="layui-input" autocomplete="off" id="standard">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="69c7-1629439313425-4621" index="4" mode="input" style="">
+                            <label class="layui-form-label">材质
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="caizhi" placeholder="" type="text" class="layui-input" autocomplete="off" id="caizhi">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="69c7-1629439313425-463211" index="4" mode="input" style="">
+                            <label class="layui-form-label">毛板
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="maoban" placeholder="" type="text" class="layui-input" autocomplete="off" id="maoban">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">后处理</label>
+                            <div class="layui-input-inline">
+                                <input name="houchuli" placeholder="" type="text" class="layui-input" autocomplete="off" id="houchuli">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="69c7-1629439313425-4632" index="4" mode="input" style="">
+                            <label class="layui-form-label">库存数量
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="kucun" lay-verify="required" placeholder="" type="number" class="layui-input" autocomplete="off" id="kucun" value="0">
+                            </div>
+                        </div>
+                        <fieldset class="layui-elem-field layui-field-title" id="86c6-1629439707606-48262" index="11" mode="field" draggable="false" style="">
+                            <legend>参数设置
+                            </legend>
+                        </fieldset>
+                    </div>
+<!--                    <div class="layui-form-item" pane="">-->
+<!--                        <label class="layui-form-label">选择需要控制的流程</label>-->
+<!--                        <div class="layui-input-block">-->
+<!--                            <input type="checkbox" name="process" lay-skin="primary" value="1" title="剪板/落料" checked>-->
+<!--                            <input type="checkbox" name="process" lay-skin="primary" value="2" title="冲(通)孔">-->
+<!--                            <input type="checkbox" name="process" lay-skin="primary" value="3" title="打字">-->
+<!--                            <input type="checkbox" name="process" lay-skin="primary" value="4" title="卷圆">-->
+<!--                            <input type="checkbox" name="process" lay-skin="primary" value="5" title="整形">-->
+<!--                            <input type="checkbox" name="process" lay-skin="primary" value="6" title="倒角">-->
+<!--                            <input type="checkbox" name="process" lay-skin="primary" value="7" title="抛光">-->
+<!--                            <input type="checkbox" name="process" lay-skin="primary" value="8" title="翻边">-->
+<!--                            <input type="checkbox" name="process" lay-skin="primary" value="9" title="包装">-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+                    <div class="layui-col-md5">
+                        <div class="layui-form-item" id="2335-1629439348414-96691" index="5" mode="input" style="">
+                            <label class="layui-form-label">规格
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="size" placeholder="长*宽*高" type="text" class="layui-input" autocomplete="off" id="size">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="layui-row" id="2b7e-1629439610943-08208" index="8" mode="grid" style="">
+                    <div class="layui-col-md6" style="">
+                        <div class="layui-form-item" id="76d1-1629439616165-32522" index="9" mode="input" draggable="false" style="">
+                            <label class="layui-form-label">剪板
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="jianban" placeholder="剪板规格" type="text" class="layui-input" autocomplete="off" id="jianban">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="76d1-1629439616165-32522" index="9" mode="input" draggable="false" style="">
+                            <label class="layui-form-label">落料
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="luoliao" placeholder="落料规格" type="text" class="layui-input" autocomplete="off" id="luoliao">
+                            </div>
+                        </div>
+                        <fieldset class="layui-elem-field layui-field-title" id="7ee1-1629439981787-39186" index="16" mode="field" style="">
+                            <legend>整形设置
+                            </legend>
+                        </fieldset>
+                    </div>
+                    <div class="layui-col-md6" style="">
+                        <div class="layui-form-item" id="51da-1629439812935-43015" index="12" mode="input">
+                            <label class="layui-form-label">冲油槽
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="chongyoucao" placeholder="冲油槽规格" type="text" class="layui-input" autocomplete="off" id="chongyoucao">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="401b-1629439817288-14684" index="13" mode="input">
+                            <label class="layui-form-label">冲(通)孔
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="chongkong" placeholder="冲(通)孔规格" type="text" class="layui-input" autocomplete="off" id="chongkong" value="Φ°">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="401b-1629439817288-14684" index="13" mode="input" style="">
+                            <label class="layui-form-label">打字
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="dazi" placeholder="打字规格" type="text" class="layui-input" autocomplete="off" id="dazi">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row" id="1414-1629439970079-97510" index="15" mode="grid" style="">
+                    <div class="layui-col-md6" style="">
+                        <div class="layui-form-item" id="3040-1629440008232-75879" index="17" mode="input" style="">
+                            <label class="layui-form-label">环规
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="zx_hg" placeholder="环规规格" type="text" class="layui-input" autocomplete="off" id="zx_hg">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="9125-1629440187297-11797" index="20" mode="input" style="">
+                            <label class="layui-form-label">座孔
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="zx_zk" placeholder="" type="text" class="layui-input" autocomplete="off" id="zx_zk">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md3" style="">
+                        <div class="layui-form-item" id="2e5b-1629440119364-83100" index="18" mode="input" style="">
+                            <label class="layui-form-label">通
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="zx_hg_t" placeholder="环规" type="text" class="layui-input" autocomplete="off" id="zx_hg_t">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="b4d0-1629440126067-98136" index="19" mode="input">
+                            <label class="layui-form-label">止
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="zx_hg_z" placeholder="环规" type="text" class="layui-input" autocomplete="off" id="zx_hg_z">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row" id="1414-1629439970079-97510" index="15" mode="grid" style="">
+                    <div class="layui-col-md6" style="">
+                        <div class="layui-form-item" id="3040-1629440008232-75879" index="17" mode="input" style="">
+                            <label class="layui-form-label">塞规
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="zx_sg" placeholder="塞规规格" type="text" class="layui-input" autocomplete="off" id="zx_sg">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="9125-1629440187297-11797" index="20" mode="input" style="">
+                            <label class="layui-form-label">壁厚
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="zx_bh" value="   +   -" placeholder="" type="text" class="layui-input" autocomplete="off" id="zx_bh">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-col-md3" style="">
+                        <div class="layui-form-item" id="2e5b-1629440119364-83100" index="18" mode="input" style="">
+                            <label class="layui-form-label">通
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="zx_sg_t" placeholder="塞规" type="text" class="layui-input" autocomplete="off" id="zx_sg_t">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" id="b4d0-1629440126067-98136" index="19" mode="input">
+                            <label class="layui-form-label">止
+                            </label>
+                            <div class="layui-input-block">
+                                <input name="zx_sg_z" placeholder="塞规" type="text" class="layui-input" autocomplete="off" id="zx_sg_z">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-row" id="7422-1629440756933-41898" index="12" mode="grid" style="">
+                <div class="layui-col-md6">
+                    <fieldset class="layui-elem-field layui-field-title" id="7458-1629440761989-53319" index="13" mode="field" style="">
+                        <legend>倒角设置
+                        </legend>
+                    </fieldset>
+                    <div class="layui-form-item" id="83dd-1629440768888-01158" index="14" mode="input" draggable="false" style="">
+                        <label class="layui-form-label">外角
+                        </label>
+                        <div class="layui-input-block">
+                            <input name="dj_wj" placeholder="" type="text" class="layui-input" autocomplete="off" id="dj_wj" value="°">
+                        </div>
+                    </div>
+                    <div class="layui-form-item" id="83dd-1629440768888-01158" index="14" mode="input" draggable="false" style="">
+                        <label class="layui-form-label">内角
+                        </label>
+                        <div class="layui-input-block">
+                            <input name="dj_nj" placeholder="" type="text" class="layui-input" autocomplete="off" id="dj_nj" value="°">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6" style="">
+                    <div class="layui-row" id="6a79-1629440945237-35264" index="24" mode="grid" style="">
+                        <div class="layui-col-md6" style="">
+                            <div class="layui-form-item" id="6e43-1629440948999-58581" index="25" mode="input">
+                                <label class="layui-form-label">高度
+                                </label>
+                                <div class="layui-input-block">
+                                    <input name="dj_gd" placeholder="" type="text" class="layui-input" autocomplete="off" id="dj_gd">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-col-md6" style="">
+                        </div>
+                    </div>
+                    <div class="layui-form-item" id="8c49-1629440958387-90911" index="28" mode="input" style="">
+                        <label class="layui-form-label">通
+                        </label>
+                        <div class="layui-input-block">
+                            <input name="dj_gd_t" placeholder="高度" type="text" class="layui-input" autocomplete="off" id="dj_gd_t">
+                        </div>
+                    </div>
+                    <div class="layui-form-item" id="c782-1629440960775-09999" index="29" mode="input">
+                        <label class="layui-form-label">止
+                        </label>
+                        <div class="layui-input-block">
+                            <input name="dj_gd_z" placeholder="高度" type="text" class="layui-input" autocomplete="off" id="dj_gd_z">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <fieldset class="layui-elem-field layui-field-title" id="62c4-1629680109951-05964" index="11" mode="field">
+                <legend>剩余参数
+                </legend>
+            </fieldset>
+            <div class="layui-row" id="6552-1629679766520-27244" index="1" mode="grid">
+                <div class="layui-col-md6">
+                    <div class="layui-form-item" id="34d4-1629679770295-07573" index="2" mode="input">
+                        <label class="layui-form-label">开口缝
+                        </label>
+                        <div class="layui-input-block">
+                            <input name="kkf" placeholder="" type="text" class="layui-input" autocomplete="off" id="kkf">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <div class="layui-form-item" id="7495-1629679804940-35675" index="3" mode="input" style="">
+                        <label class="layui-form-label">翻边
+                        </label>
+                        <div class="layui-input-block">
+                            <input name="fanbian" placeholder="" type="text" class="layui-input" autocomplete="off" id="fanbian" value="高度：">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-row" id="b5f7-1629679877806-92800" index="4" mode="grid" style="">
+                <div class="layui-col-md6" style="">
+                    <div class="layui-form-item" id="682f-1629679905751-11530" index="5" mode="input" style="">
+                        <label class="layui-form-label">切/拉边
+                        </label>
+                        <div class="layui-input-block">
+                            <input name="qlb" placeholder="" type="text" class="layui-input" autocomplete="off" id="qlb" value="法兰边：">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6" style="">
+                    <div class="layui-form-item" id="76a5-1629679956917-94017" index="6" mode="input">
+                        <label class="layui-form-label">研磨
+                        </label>
+                        <div class="layui-input-block">
+                            <input name="yanmo" placeholder="" type="text" class="layui-input" autocomplete="off" id="yanmo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-row" id="6efe-1629679997811-50652" index="7" mode="grid" style="">
+                <div class="layui-col-md6" style="">
+                    <div class="layui-form-item" id="3288-1629680001223-50192" index="8" mode="input">
+                        <label class="layui-form-label">抛光
+                        </label>
+                        <div class="layui-input-block">
+                            <input name="paoguang" placeholder="" type="text" class="layui-input" autocomplete="off" id="paoguang">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6" style="">
+                    <div class="layui-form-item" id="83f8-1629680026342-09795" index="9" mode="input">
+                        <label class="layui-form-label">上油
+                        </label>
+                        <div class="layui-input-block">
+                            <input name="shangyou" placeholder="" type="text" class="layui-input" autocomplete="off" id="shangyou">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button type='button' class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
         </form>
 
-<!--        <form class="layui-form" >-->
-<!--            <div class="layui-form-item">-->
-<!--                <label class="layui-form-label">型号</label>-->
-<!--                <div class="layui-input-block">-->
-<!--                    <input type="text" name="name"  autocomplete="off"-->
-<!--                           class="layui-input">-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            <div class="layui-form-item">-->
-<!--                <div class="layui-form-item">-->
-<!--                    <label class="layui-form-label">规格</label>-->
-<!--                    <div class="layui-input-block">-->
-<!--                        <input type="text" name="size" autocomplete="off" class="layui-input">-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <div class="layui-form-item">-->
-
-<!--                    <div class="layui-inline">-->
-<!--                        <label class="layui-form-label">库存</label>-->
-<!--                        <div class="layui-input-inline">-->
-<!--                            <input type="text" name="kucun" id="库存"-->
-<!--                                   placeholder=""-->
-<!--                                   autocomplete="off" class="layui-input">-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                </div>-->
-
-<!--                <div class="layui-inline">-->
-<!--                    <label class="layui-form-label">毛板</label>-->
-<!--                    <div class="layui-input-inline">-->
-<!--                        <input type="text" name="maoban" id="maoban"-->
-<!--                               placeholder=""-->
-<!--                               autocomplete="off" class="layui-input">-->
-<!--                    </div>-->
-
-<!--                </div>-->
-<!--                <div class="layui-form-item">-->
-<!--                    <label class="layui-form-label">后处理</label>-->
-<!--                    <div class="layui-input-block">-->
-<!--                        <input type="text" name="houchuli"-->
-<!--                               placeholder="请输入" autocomplete="off" class="layui-input">-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <div class="layui-form-item">-->
-
-<!--                    <label class="layui-form-label">材质</label>-->
-<!--                    <div class="layui-input-block">-->
-<!--                        <input type="text" name="caizhi"-->
-<!--                               autocomplete="off" class="layui-input">-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <div class="layui-form-item">-->
-<!--                    <label class="layui-form-label">标准</label>-->
-<!--                    <div class="layui-input-block">-->
-<!--                        <input type="text" name="stantard"-->
-<!--                               placeholder="请输入" autocomplete="off" class="layui-input">-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <div class="layui-form-item">-->
-<!--                    <label class="layui-form-label">剪板</label>-->
-<!--                    <div class="layui-input-block">-->
-<!--                        <input type="text" name="jianban"-->
-<!--                               placeholder="请输入" autocomplete="off" class="layui-input">-->
-<!--                    </div>-->
-<!--                </div>-->
-
-
-<!--                <div class="layui-form-item">-->
-
-<!--                    <label class="layui-form-label">落料</label>-->
-<!--                    <div class="layui-input-block">-->
-<!--                        <input type="text" name="luoliao"-->
-<!--                               placeholder="请输入" autocomplete="off" class="layui-input">-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <div class="layui-form-item">-->
-<!--                    <div class="layui-form-item">-->
-<!--                        <label class="layui-form-label">冲油槽</label>-->
-<!--                        <div class="layui-input-block">-->
-<!--                            <input type="text" name="chongyoucao" autocomplete="off" placeholder="请输入"-->
-<!--                                   class="layui-input">-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="layui-form-item">-->
-<!--                        <div class="layui-input-block">-->
-<!--                            <button type='button' class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>-->
-<!--                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </form>-->
 
     </div>
 </div>
 <script charset="UTF-8">
-    let curdata=parent.getData()
     layui.use(['form', 'layedit', 'laydate'], function () {
         var form = layui.form
             , layer = layui.layer
@@ -129,55 +342,16 @@
         /**
          * 初始化表单，要加上，不然刷新部分组件可能会不加载
          */
-
-
-        //日期
-        laydate.render({
-            elem: '#required_time'
-        });
-        var $ = layui.jquery
-        for(let i in curdata){
-            $("#form1").appendChild(`${curdata[i].key}: <input type="text" class="layui-input" value="${curdata[i].value}"/>`)
-        }
         form.render();
-        $.ajax({
-            url: 'GetProducts',
-            dataType: 'json',
-            type: 'get',
-            success: function (data) {
-                $("#product_id").empty();
-                $("#product_id").append(new Option("请选择或搜索产品", ""));
-                console.log(data);//下面会提到这个data是什么值
-                //使用循环遍历，给下拉列表赋值
-                $.each(data.data, function (index, value) {
-                    var kcb='无库存板';
-                    // console.log(value.department_id);
-                    if(value.maoban.length===0){
-                        kcb='库存板';
-                    }
-                    var hcl=' 后处理:';
-                    // console.log(value.department_id);
-                    if(value.houchuli.length===0){
-                        hcl='';
-                    }
-
-                    $('#product_id').append(new Option(value.name + " " + value.standard + " " + value.size + " 库存:" + value.kucun+ hcl + value.houchuli + " " + kcb, value.id));// 下拉菜单里添加元素
-                });
-                layui.form.render("select");//重新渲染 固定写法
-            },
-            error: function () {
-                layer.open({
-                    content: '加载失败！',
-                });
-            }
+        form.on('submit(demo1)',function (obj) {
+            console.log('obj',obj)
+            var data=obj.field
+            window.$ajaxIo('/ResetProducts',{...data,'id':curdata.id},function (res,rest) {
+                console.log(rest)
+                parent.reloadData()
+                layer.closeAll();
+            },'POST')
         })
-        //监听提交
-        form.on('submit(demo1)', function (data) {
-            // layer.alert(JSON.stringify(data.field), {
-            //     title: '最终的提交信息'
-            // }
-            parent.callback(data.field)
-        });
 
     });
 </script>

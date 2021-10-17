@@ -39,7 +39,7 @@
 
         <script type="text/html" id="currentTableBar">
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="details">流程</a>
-<!--            <a class="layui-btn layui-btn-xs layui-btn-normal  data-count-edit" lay-event="update">修改</a>-->
+            <a class="layui-btn layui-btn-xs layui-btn-normal  data-count-edit" lay-event="update">修改</a>
 <!--            {{#  if(d.used ==='0'){ }}-->
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
 <!--            {{#  } }}-->
@@ -104,10 +104,11 @@
         //     console.log(rest)
         //     producttable.reload()
         // },'post')
-        window.$ajaxIo('/ResetProducts',{...data,'id':curdata.rowId},function (res,rest) {
-            console.log(rest)
-            producttable.reload()
-        },'POST')
+        // window.$ajaxIo('/ResetProducts',{...data,'id':curdata.id},function (res,rest) {
+        //     console.log(rest)
+        //     producttable.reload()
+        //     layui.layer.closeAll();
+        // },'POST')
     }
 
     layui.use(['form', 'table', 'miniPage', 'element'], function () {
@@ -306,16 +307,17 @@
                 });
                 return false;}
             else if(obj.event==='update'){
-                curdata=[]
-                console.log(data)
-                for(let key in data){
-                    console.log('key',key);
-                    (key!=='used'&&key!=='id')&&curdata.push({'key':keyMap[key],'value':data[key],'oldkey':key})
-                }
-                curdata.sort(function (a,b){
-                    return a.oldkey>b.oldkey;
-                })
-                console.log('updatecurdata',curdata)
+                // curdata=[]
+                // console.log(data)
+                // for(let key in data){
+                //     console.log('key',key);
+                //     (key!=='used'&&key!=='id')&&curdata.push({'key':keyMap[key],'value':data[key],'oldkey':key})
+                // }
+                // curdata.sort(function (a,b){
+                //     return a.oldkey>b.oldkey;
+                // })
+                // console.log('updatecurdata',curdata)
+                curdata=data
                 var content = miniPage.getHrefContent('manage/update_product.html');
                 var openWH = miniPage.getOpenWidthHeight();
                 var index = layer.open({

@@ -168,8 +168,9 @@
       table.render({
         title:'未完成订单',
         elem: '#currentTableId',
-        url: '/GetUnfinishedOrders?search=customer&customer='+$('#customer').val(),
+        url: '/GetFinishedOrders?search=customer&customer='+$('#customer').val(),
         toolbar: '#toolbarDemo',
+        height:420,
         defaultToolbar: ['filter', 'exports', 'print', {
           title: '提示',
           layEvent: 'LAYTABLE_TIPS',
@@ -230,7 +231,8 @@
       table.render({
         title: '订单信息',
         elem: '#currentTableId',
-        url: '/GetUnfinishedOrders?search=custom_id&custom_id=' + $('#custom_id').val(),
+        url: '/GetFinishedOrders?search=custom_id&custom_id=' + $('#custom_id').val(),
+        height:420,
         toolbar: '#toolbarDemo',
         defaultToolbar: ['filter', 'exports', 'print', {
           title: '提示',
@@ -291,8 +293,9 @@
       table.render({
         title: '订单信息',
         elem: '#currentTableId',
-        url: '/GetUnfinishedOrders?search=size&size=' + $('#size').val(),
+        url: '/GetFinishedOrders?search=size&size=' + $('#size').val(),
         toolbar: '#toolbarDemo',
+        height: 420,
         defaultToolbar: ['filter', 'exports', 'print', {
           title: '提示',
           layEvent: 'LAYTABLE_TIPS',

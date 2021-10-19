@@ -156,7 +156,7 @@
                         hcl='';
                     }
                     
-                    $('#product_id').append(new Option(value.name + " " + value.standard + " " + value.size + " 库存:" + value.kucun+ hcl + value.houchuli + " " + kcb, value.id));// 下拉菜单里添加元素
+                    $('#product_id').append(new Option(value.name + " " + value.standard + " " + value.size + " 库存:" + value.kucun+ hcl + value.houchuli + " " + kcb, value.id+','+value.kucun));// 下拉菜单里添加元素
                 });
                 layui.form.render("select");//重新渲染 固定写法
             },
@@ -171,6 +171,7 @@
             // layer.alert(JSON.stringify(data.field), {
             //     title: '最终的提交信息'
             // })
+            console.log('addorders',data)
             var xmlHttpReg = null;
             if (window.ActiveXObject) {//如果是IE
 
@@ -180,13 +181,20 @@
 
                 xmlHttpReg = new XMLHttpRequest(); //实例化一个xmlHttpReg
             }
-
+            var product=data.field.product_id.split(',');//product[0]为product_id,product[1]为product的库存
+            console.log('product',product)
+            if(product && product.length>=2 && parseInt(product[1])<parseInt(data.field.reduce)){
+                layer.msg('库存不足,请修改使用库存',{icon:2});
+                return false;
+            }
             //如果实例化成功,就调用open()方法,就开始准备向服务器发送请求
             if (xmlHttpReg != null) {
                 xmlHttpReg.open("POST", "AddOrders", true);
                 xmlHttpReg.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xmlHttpReg.onreadystatechange = doResult; //设置回调函数
-                xmlHttpReg.send(JSON.stringify(data.field));
+
+                var realdata={...data.field,'product_id':product[0]}
+                xmlHttpReg.send(JSON.stringify(realdata));
             }
 
             //回调函数

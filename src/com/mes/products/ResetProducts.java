@@ -51,6 +51,9 @@ public class ResetProducts extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        System.out.println("request.getParameter(\"content\")"+request.getParameter("content"));
+//        String reg="yu$";
+//        String con="fdsfsdgyu";
+//        boolean flag=con.matches(reg);
         response.setContentType("text/json; charset=utf-8");
         String js = ReadAsChars.read(request);
 

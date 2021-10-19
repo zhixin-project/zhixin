@@ -63,7 +63,8 @@
                     size: '规格',
                     packs:'箱数',
                     sjck:'送货数量',
-                    custom_id:'采购单号'
+                    custom_id:'采购单号',
+                    houchuli:'后处理'
                 });
                 var data = excel.filterExportData(selectData, [
                     'standard',
@@ -71,7 +72,8 @@
                     'size',
                     'sjck',
                     'packs',
-                    'custom_id'
+                    'custom_id',
+                    'houchuli'
                 ]);
                 excel.setExportCellStyle(data,'A1:F'+data.length,{
                     s:{

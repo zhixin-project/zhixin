@@ -53,8 +53,11 @@ public class GetProducts extends HttpServlet {
             PreparedStatement ps = connect.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             JSON json = null;
-
-            json = rsToJSON.resultSetToJSON(rs, Integer.parseInt(request.getParameter("page")), Integer.parseInt(request.getParameter("limit")));
+            if("table".equals(request.getParameter("flag"))) {
+                json = rsToJSON.resultSetToJSON(rs, Integer.parseInt(request.getParameter("page")), Integer.parseInt(request.getParameter("limit")));
+            }else if("search".equals(request.getParameter("flag"))) {
+                json = rsToJSON.resultSetToJSON(rs);
+            }
 
 
 

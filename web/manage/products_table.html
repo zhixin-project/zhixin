@@ -118,7 +118,7 @@
             miniPage = layui.miniPage;
         producttable=table
         $.ajax({
-            url: 'GetProducts',
+            url: 'GetProducts?flag=search',
             dataType: 'json',
             type: 'get',
             success: function (data) {
@@ -146,7 +146,7 @@
         })
         table.render({
             elem: '#currentTableId',
-            url: '/GetProducts',
+            url: '/GetProducts?flag=table',
             height:550,
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {

@@ -63,9 +63,6 @@ public class Login extends HttpServlet {
         }catch (Exception e) {
             out.print(rsToJSON.getError());
             e.printStackTrace(); }
-
-
-
         if (password.equals(passwd)) {
             s.setAttribute("IsLogin", true);
             s.setAttribute("user", user);

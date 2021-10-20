@@ -54,7 +54,7 @@ public class GetProducts extends HttpServlet {
             ResultSet rs = ps.executeQuery();
             JSON json = null;
 
-            json = rsToJSON.resultSetToJSON(rs);
+            json = rsToJSON.resultSetToJSON(rs, Integer.parseInt(request.getParameter("page")), Integer.parseInt(request.getParameter("limit")));
 
 
 

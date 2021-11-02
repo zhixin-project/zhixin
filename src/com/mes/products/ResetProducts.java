@@ -69,7 +69,7 @@ public class ResetProducts extends HttpServlet {
             new dbConnector();
             Connection connect = dbConnector.getConnection();
             int productId= -1;
-            String sql="";
+            String sql;
             Iterator itr2=json.entrySet().iterator();
             sql="UPDATE products SET ";
             while (itr2.hasNext()){

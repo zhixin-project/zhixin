@@ -54,7 +54,7 @@ public class GetWarnOrders extends HttpServlet {
             // 所有三天未操作的订单（包括已经完成所有工序的订单）
 //            sql = "SELECT * FROM orders where id in (SELECT id FROM (SELECT id,max(finished_time) t from processes GROUP BY id) a WHERE DATEDIFF(now(),a.t)>=3) order by  required_time; ";
             //  未完成所有工序的订单中三天未操作的订单，按照交付时间增序排列
-            sql = "SELECT * FROM orders where id in (SELECT id FROM (SELECT id FROM (SELECT id,max(finished_time) t from processes GROUP BY id) a WHERE DATEDIFF(now(),a.t)>=3) c WHERE id IN (SELECT id from processes WHERE finished_time is NULL)) order by  required_time; ";
+            sql = "SELECT *,IFNULL(curr_step/total_step,0) as percentage FROM `orders` LEFT JOIN `products` on orders.product_id=products.id  where orders.id in (SELECT id FROM (SELECT id FROM (SELECT id,max(finished_time) t from processes GROUP BY id) a WHERE DATEDIFF(now(),a.t)>=3) c WHERE id IN (SELECT id from processes WHERE finished_time is NULL)) order by  required_time; ";
             ps = connect.prepareStatement(sql);
             rs = ps.executeQuery();
             json = rsToJSON.resultSetToJSON(rs, Integer.parseInt(request.getParameter("page")), Integer.parseInt(request.getParameter("limit")));

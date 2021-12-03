@@ -162,9 +162,9 @@
                     if(value.houchuli.length===0){
                         hcl='';
                     }
-                    if(value.kucun>0){
+                    // if(value.kucun>0){
                         $('#product_id').append(new Option(value.name + " " + value.standard + " " + value.size + " 库存:" + value.kucun+ hcl + value.houchuli + " ", value.id+','+value.kucun));// 下拉菜单里添加元素
-                    }
+                    // }
                 });
                 layui.form.render("select");//重新渲染 固定写法
             },

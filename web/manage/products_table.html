@@ -134,7 +134,9 @@
                     }
 
                     // $('#product_id').append(new Option("ID:"+value.id+" "+value.name + " " + value.standard + " " + value.size + " 库存:" + value.kucun+ hcl + value.houchuli + " 毛板:" + value.maoban));// 下拉菜单里添加元素
-                    $('#product_id').append(`<option value=${value.id}>ID:${value.id} ${value.name} ${value.standard} ${value.size}库存：${value.kucun}hcl${value.houchuli}毛板：${value.maoban}</option>`)
+                    // $('#product_id').append(`<option value=${value.id}>ID:${value.id} ${value.name} ${value.standard} ${value.size}库存：${value.kucun}hcl${value.houchuli}毛板：${value.maoban}</option>`)
+                    $('#product_id').append(`<option value=${value.id}>ID:${value.id} ${value.name} ${value.standard} ${value.size}库存：${value.kucun}hcl${value.houchuli}</option>`)
+
                 });
                 layui.form.render("select");//重新渲染 固定写法
             },
@@ -159,7 +161,7 @@
                 {field: 'name', minWidth: 120, title: '型号', sort: true,},
                 {field: 'size', minWidth: 120, title: '规格', sort: true,},
                 {field: 'kucun', minWidth: 120, title: '库存', sort: true,},
-                {field: 'maoban', minWidth: 120, title: '毛板', sort: true,},
+                // {field: 'maoban', minWidth: 120, title: '毛板', sort: true,},
                 {field: 'houchuli', minWidth: 120, title: '后处理', sort: true,},
                 {field: 'caizhi', minWidth: 120, title: '材质', sort: true,},
                 {field: 'standard', minWidth: 120, title: '标准', sort: true,},

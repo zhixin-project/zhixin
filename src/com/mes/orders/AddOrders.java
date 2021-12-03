@@ -66,7 +66,7 @@ public class AddOrders extends HttpServlet {
                 out.print("订单号重复！");
                 return;
             }
-            sql = "INSERT INTO `orders` (`id`,`custom_id`, `required_time`, `customer`, `product_id`, `amount`, `beizhu`,`using_stock`, `price`,`mbsl`,`touliao`,`finish_time`) VALUES (?,?, ?, ?, ?, ?,?,?,?,?,?,?)";
+            sql = "INSERT INTO `orders` (`id`,`custom_id`, `required_time`, `customer`, `product_id`, `amount`, `beizhu`,`using_stock`, `price`,`mbsl`,`touliao`,`finish_time`,`maoban_size`) VALUES (?,?, ?, ?, ?, ?,?,?,?,?,?,?,?)";
             ps = connect.prepareStatement(sql);
             DateTimeFormatter ofPattern = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSS");
             String localDate = LocalDateTime.now().format(ofPattern);
@@ -81,6 +81,7 @@ public class AddOrders extends HttpServlet {
             ps.setDouble(9,json.getDoubleValue("price"));
             ps.setInt(10,json.getIntValue("mbsl"));
             ps.setString(11,json.getString("touliao"));
+            ps.setString(13, json.getString("maoban_size"));
             if(json.getIntValue("amount")==json.getIntValue("reduce")){
                 java.util.Date date = new Date();
                 DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -123,7 +123,7 @@
             type: 'get',
             success: function (data) {
                 // $("#product_id").empty();
-                $("#product_id").append(new Option("产品搜索"));
+                $("#product_id").append(new Option(""));
                 console.log(data);//下面会提到这个data是什么值
                 //使用循环遍历，给下拉列表赋值
                 $.each(data.data, function (index, value) {
@@ -135,7 +135,7 @@
 
                     // $('#product_id').append(new Option("ID:"+value.id+" "+value.name + " " + value.standard + " " + value.size + " 库存:" + value.kucun+ hcl + value.houchuli + " 毛板:" + value.maoban));// 下拉菜单里添加元素
                     // $('#product_id').append(`<option value=${value.id}>ID:${value.id} ${value.name} ${value.standard} ${value.size}库存：${value.kucun}hcl${value.houchuli}毛板：${value.maoban}</option>`)
-                    $('#product_id').append(`<option value=${value.id}>ID:${value.id} ${value.name} ${value.standard} ${value.size}库存：${value.kucun}hcl${value.houchuli}</option>`)
+                    $('#product_id').append(`<option value=${value.id}>ID:${value.id} ${value.name} ${value.standard} ${value.size}库存：${value.kucun}${hcl}${value.houchuli}</option>`)
 
                 });
                 layui.form.render("select");//重新渲染 固定写法

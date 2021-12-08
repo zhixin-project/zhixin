@@ -31,8 +31,10 @@
                         $("p#bxd").append(" 本单为补下单 ")
                     } else if (i === "bxdly") {
                         $("p#bxd").append(" 补下单理由:" + field)
-                    } else if(i==='using_stock'){
+                    } else if (i === 'using_stock') {
                         $("p#bxd").append(" 使用库存:" + field)
+                    // } else if (i === "maoban" && field!="") {
+                    //     $("p#maoban_size").text(field)
                     }
                     else $("#" + i).append(field + " ");
 
@@ -202,7 +204,7 @@ punctuation'>
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-                    <p id="maoban" class=MsoNormal><span lang=ZH-CN style='mso-bidi-font-size:10.5pt;
+                    <p id="maoban_size" class=MsoNormal><span lang=ZH-CN style='mso-bidi-font-size:10.5pt;
   font-family:宋体'></span></p>
                 </td>
                 <td width=138 colspan=3 valign=top style='width:103.7pt;border-top:none;
@@ -484,8 +486,8 @@ font-family:宋体'></span></p>
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt;height:22px'>
                     <p class=MsoNormal align=center style='text-align: center'><span
-                    style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>倒角<span
-                    lang=ZH-CN></span></span></p>
+                            style='font-size:11.0pt;mso-bidi-font-size:12.0pt;font-family:宋体'>倒角<span
+                            lang=ZH-CN></span></span></p>
                 </td>
                 <td width=292 colspan=2 valign=top style='width:219.2pt;border-top:none;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;

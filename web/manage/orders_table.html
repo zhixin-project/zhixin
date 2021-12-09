@@ -82,6 +82,8 @@
             {{#  if(d.started_production ==='0'){ }}
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="start_process">开始生产</a>
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="update">修改</a>
+
             {{#  } }}
             {{#  } }}
 
@@ -465,6 +467,34 @@
                     }
 
                 });
+
+            } else if (obj.event === 'update') {
+                // layer.confirm('确认要开始生产吗？(开始后订单及对应产品将无法删除)', {
+                //     btn: ['确定', '取消']//按钮
+                // }, function (index) {
+                //
+                //     layer.close(index);
+                // curdata=data
+                // console.log(data)
+                var content = miniPage.getHrefContent('GetOrder?&id='+data.id);
+                var openWH = miniPage.getOpenWidthHeight();
+                var index = layer.open({
+                    title: '修改订单',
+                    type: 1,
+                    shade: 0.2,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: [openWH[0] + 'px', openWH[1] + 'px'],
+                    offset: [openWH[2] + 'px', openWH[3] + 'px'],
+                    content: content,
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+
+
+
+                // });
 
             } else if (obj.event === 'delete') {
                 layer.confirm('真的删除么', function (index) {

@@ -1,0 +1,354 @@
+<style>
+    .layui-form-select{
+        width: 600px;
+    }
+</style>
+<div class="layuimini-container layuimini-page-anim">
+    <div class="layuimini-main">
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">产品搜索</label>
+                        <div class="layui-input-inline">
+                            <select name="product_id" id="product_id" lay-verify="required" lay-search="" >
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <button type="reset" class="layui-btn" >重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加</button>
+                <button name="refresh" id="refresh" class="layui-btn layui-btn-normal layui-btn-sm data-add-btn"
+                        lay-event="refresh"> 刷新
+                </button>
+
+            </div>
+        </script>
+        <script type="text/html" id="editDiv">
+            {{d}}
+        </script>
+
+
+        <script type="text/html" id="currentTableBar">
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="details">流程</a>
+            <a class="layui-btn layui-btn-xs layui-btn-normal  data-count-edit" lay-event="update">修改</a>
+<!--            {{#  if(d.used ==='0'){ }}-->
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+<!--            {{#  } }}-->
+        </script>
+
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+    </div>
+</div>
+
+<script>
+    let keyMap={
+        'id':'ID',
+        'name': '型号',
+        'size':'规格',
+        'kucun':'库存',
+        'maoban':'毛板',
+        'houchuli':'后处理',
+        'caizhi':'材质',
+        'standard':'标准',
+        'jianban':'剪板',
+        'luoliao':'落料',
+        'chongyoucao':'冲油槽',
+        'chongkong':'冲孔',
+        'dazi':'打字',
+        'zx_hg':'环规',
+        'zx_hg_t':'环规_通',
+        'zx_hg_z':'环规_止',
+        'zx_sg':'塞规',
+        'zx_sg_t':'塞规_通',
+        'zx_sg_z':'塞规_止',
+        'zx_zk':'座孔',
+        'zx_bh': '壁厚',
+        'dj_wj': '外角',
+        'dj_nj': '内角',
+        'dj_gd': '高度',
+        'dj_gd_t': '高度_通',
+        'dj_gd_z': '高度_止',
+        'kkf': '开口封',
+        'fanbian': '翻边',
+        'qlb': '切/拉边',
+        'yanmo': '研磨',
+        'paoguang': '抛光',
+        'shangyou': '上油',
+
+    }
+    var curdata=[]
+    var producttable=null
+    function getData(){
+        return curdata;
+    }
+    function callback(data){
+        console.log('data',data)
+        // var tdata='content='
+        // for(let key in data){
+        //     tdata+=(data[key]? (key+'='+'\''+data[key]+'\''+' AND '):'')
+        // }
+        //
+        // tdata+='id='+'\''+curdata.rowId+'\''
+        // console.log(tdata)
+
+        // window.$ajaxIo('/ResetProducts',tdata,function (res,rest) {
+        //     console.log(rest)
+        //     producttable.reload()
+        // },'post')
+        // window.$ajaxIo('/ResetProducts',{...data,'id':curdata.id},function (res,rest) {
+        //     console.log(rest)
+        //     producttable.reload()
+        //     layui.layer.closeAll();
+        // },'POST')
+    }
+
+    layui.use(['form', 'table', 'miniPage', 'element'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table,
+            miniPage = layui.miniPage;
+        producttable=table
+        $.ajax({
+            url: 'GetProducts?flag=search',
+            dataType: 'json',
+            type: 'get',
+            success: function (data) {
+                // $("#product_id").empty();
+                $("#product_id").append(new Option(""));
+                console.log(data);//下面会提到这个data是什么值
+                //使用循环遍历，给下拉列表赋值
+                $.each(data.data, function (index, value) {
+                    var hcl=' 后处理:';
+                    // console.log(value.department_id);
+                    if(value.houchuli.length===0){
+                        hcl='';
+                    }
+
+                    // $('#product_id').append(new Option("ID:"+value.id+" "+value.name + " " + value.standard + " " + value.size + " 库存:" + value.kucun+ hcl + value.houchuli + " 毛板:" + value.maoban));// 下拉菜单里添加元素
+                    // $('#product_id').append(`<option value=${value.id}>ID:${value.id} ${value.name} ${value.standard} ${value.size}库存：${value.kucun}hcl${value.houchuli}毛板：${value.maoban}</option>`)
+                    $('#product_id').append(`<option value=${value.id}>ID:${value.id} ${value.name} ${value.standard} ${value.size}库存：${value.kucun}${hcl}${value.houchuli}</option>`)
+
+                });
+                layui.form.render("select");//重新渲染 固定写法
+            },
+            error: function () {
+                layer.open({
+                    content: '加载失败！',
+                });
+            }
+        })
+        table.render({
+            elem: '#currentTableId',
+            url: '/GetProducts?flag=table',
+            height:550,
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports', 'print', {
+                minWidth: 120, title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            cols: [[
+                {field: 'id', minWidth: 120, title: 'ID', sort: true},
+                {field: 'name', minWidth: 120, title: '型号', sort: true,},
+                {field: 'size', minWidth: 120, title: '规格', sort: true,},
+                {field: 'kucun', minWidth: 120, title: '库存', sort: true,},
+                // {field: 'maoban', minWidth: 120, title: '毛板', sort: true,},
+                {field: 'houchuli', minWidth: 120, title: '后处理', sort: true,},
+                {field: 'caizhi', minWidth: 120, title: '材质', sort: true,},
+                {field: 'standard', minWidth: 120, title: '标准', sort: true,},
+                {field: 'jianban', minWidth: 120, title: '剪板', sort: true,},
+                {field: 'luoliao', minWidth: 120, title: '落料', sort: true,},
+                {field: 'chongyoucao', minWidth: 120, title: '冲油槽', sort: true,},
+                {field: 'chongkong', minWidth: 120, title: '冲孔', sort: true,},
+                {field: 'dazi', minWidth: 120, title: '打字', sort: true,},
+                {field: 'zx_hg', minWidth: 120, title: '环规', sort: true,},
+                {field: 'zx_hg_t', minWidth: 120, title: '环规_通', sort: true,},
+                {field: 'zx_hg_z', minWidth: 120, title: '环规_止', sort: true,},
+                {field: 'zx_zk', minWidth: 120, title: '座孔', sort: true,},
+                {field: 'zx_sg', minWidth: 120, title: '塞规', sort: true,},
+                {field: 'zx_sg_t', minWidth: 120, title: '塞规_通', sort: true,},
+                {field: 'zx_sg_z', minWidth: 120, title: '塞规_止', sort: true,},
+                {field: 'zx_bh', minWidth: 120, title: '壁厚', sort: true,},
+                {field: 'dj_wj', minWidth: 120, title: '外角', sort: true,},
+                {field: 'dj_nj', minWidth: 120, title: '内角', sort: true},
+                {field: 'dj_gd', minWidth: 120, title: '高度', sort: true,},
+                {field: 'dj_gd_t', minWidth: 120, title: '高度_通', sort: true,},
+                {field: 'dj_gd_z', minWidth: 120, title: '高度_止', sort: true,},
+                {field: 'kkf', minWidth: 120, title: '开口封', sort: true,},
+                {field: 'fanbian', minWidth: 120, title: '翻边', sort: true,},
+                {field: 'qlb', minWidth: 120, title: '切/拉边', sort: true,},
+                {field: 'yanmo', minWidth: 120, title: '研磨', sort: true,},
+                {field: 'paoguang', minWidth: 120, title: '抛光', sort: true,},
+                {field: 'shangyou', minWidth: 120, title: '上油', sort: true,},
+                {title: '操作', minWidth: 200, toolbar: '#currentTableBar', align: "center", fixed: 'right'}
+            ]],
+            limits: [10, 15, 20, 25, 50, 100],
+            limit: 100,
+            page: true,
+            skin: 'line'
+        });
+
+        /**
+         * toolbar事件监听
+         */
+        form.on('submit(data-reset)',function (obj){
+            console.log('ubmit(data-reset)',obj)
+        })
+        table.on('toolbar(currentTableFilter)', function (obj) {
+            console.log('obj',obj)
+            if (obj.event === 'add') {   // 监听添加操作
+                var content = miniPage.getHrefContent('manage/add_product.html');
+                var openWH = miniPage.getOpenWidthHeight();
+
+                var index = layer.open({
+                    minWidth: 120, title: '添加产品',
+                    type: 1,
+                    shade: 0.2,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: [openWH[0] + 'px', openWH[1] + 'px'],
+                    offset: [openWH[2] + 'px', openWH[3] + 'px'],
+                    content: content,
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+            } else if (obj.event === 'refresh') {   // 监听刷新操作
+                table.reload('currentTableId');
+            }
+        });
+
+        //监听表格复选框选择
+        table.on('checkbox(currentTableFilter)', function (obj) {
+            console.log(obj)
+        });
+
+        table.on('tool(currentTableFilter)', function (obj) {
+            console.log(obj)
+
+            var data = obj.data;
+
+
+            console.log('curdata',curdata)
+            if (obj.event === 'delete') {
+                layer.confirm('真的删除么', function (index) {
+                    obj.del();
+                    var xmlHttpReg = null;
+                    if (window.ActiveXObject) {//如果是IE
+
+                        xmlHttpReg = new ActiveXObject("Microsoft.XMLHTTP");
+
+                    } else if (window.XMLHttpRequest) {
+
+                        xmlHttpReg = new XMLHttpRequest(); //实例化一个xmlHttpReg
+                    }
+
+                    //如果实例化成功,就调用open()方法,就开始准备向服务器发送请求
+                    if (xmlHttpReg != null) {
+                        xmlHttpReg.open("GET", "DeleteProducts?id=" + data.id, true);
+                        xmlHttpReg.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                        xmlHttpReg.onreadystatechange = doResult; //设置回调函数
+                        xmlHttpReg.send();
+
+                    }
+
+                    //回调函数
+                    //一旦readyState的值改变,将会调用这个函数,readyState=4表示完成相应
+
+                    //设定函数doResult()
+                    function doResult() {
+
+                        if (xmlHttpReg.readyState === 4) {//4代表执行完成
+
+
+                            if (xmlHttpReg.status === 200) {//200代表执行成功
+                                //将xmlHttpReg.responseText的值赋给ID为resText的元素
+                                if(xmlHttpReg.responseText.includes("success")){
+                                    alert("操作成功");
+                                    parent.reloadData();
+                                    layer.closeAll();
+                                }
+                                else alert("操作失败！");
+                            }
+                        }
+
+                    }
+
+                    layer.close(index);
+                });
+            }
+            else if (obj.event === 'details') {
+
+                var content = miniPage.getHrefContent('manage/product_detail.html');
+                var openWH = miniPage.getOpenWidthHeight();
+                layui.data('curr_id', {
+                    key: 'id'
+                    , value: data.id
+                });
+                var index = layer.open({
+                    title: '流程',
+                    type: 1,
+                    shade: 0.2,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: [openWH[0] + 'px', openWH[1] + 'px'],
+                    offset: [openWH[2] + 'px', openWH[3] + 'px'],
+                    content: content,
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;}
+            else if(obj.event==='update'){
+                // curdata=[]
+                // console.log(data)
+                // for(let key in data){
+                //     console.log('key',key);
+                //     (key!=='used'&&key!=='id')&&curdata.push({'key':keyMap[key],'value':data[key],'oldkey':key})
+                // }
+                // curdata.sort(function (a,b){
+                //     return a.oldkey>b.oldkey;
+                // })
+                // console.log('updatecurdata',curdata)
+                curdata=data
+                var content = miniPage.getHrefContent('manage/update_product.html');
+                var openWH = miniPage.getOpenWidthHeight();
+                var index = layer.open({
+                    title: '修改产品',
+                    type: 1,
+                    shade: 0.2,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: [openWH[0] + 'px', openWH[1] + 'px'],
+                    offset: [openWH[2] + 'px', openWH[3] + 'px'],
+                    content: content,
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+
+            }
+        });
+
+        //监听表格编译事件
+        table.on('edit(currentTableFilter)',function (obj){
+            var value =obj.value
+
+            layer.msg('没有此工序')
+        })
+    });
+    function reloadData() {
+        //当前页的刷新
+        var $ = layui.jquery;
+        $("#refresh").click();
+    }
+</script>

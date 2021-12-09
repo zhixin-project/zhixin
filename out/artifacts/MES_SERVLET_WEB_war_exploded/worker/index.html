@@ -1,0 +1,206 @@
+<html lang="zh-cn">
+
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script>
+
+        var xmlHttpReg1 = null;
+        if (window.ActiveXObject) {//如果是IE
+
+            xmlHttpReg1 = new ActiveXObject("Microsoft.XMLHTTP");
+
+        } else if (window.XMLHttpRequest) {
+
+            xmlHttpReg1 = new XMLHttpRequest(); //实例化一个xmlHttpReg
+        }
+
+        //如果实例化成功,就调用open()方法,就开始准备向服务器发送请求
+        if (xmlHttpReg1 != null) {
+            xmlHttpReg1.open("GET", "../GetWorkerLogin", true);
+            xmlHttpReg1.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlHttpReg1.onreadystatechange = doResult; //设置回调函数
+            xmlHttpReg1.send();
+
+        }
+
+        //回调函数
+        //一旦readyState的值改变,将会调用这个函数,readyState=4表示完成相应
+
+        //设定函数doResult()
+        function doResult() {
+
+            if (xmlHttpReg1.readyState === 4) {//4代表执行完成
+                if (xmlHttpReg1.status === 200) {//200代表执行成功
+                    //将xmlHttpReg.responseText的值赋给ID为resText的元素
+                    //alert(xmlHttpReg.responseText);
+                    if (xmlHttpReg1.responseText.includes("false")) {
+                        window.location.href = "login.html";
+                    }
+                }
+            }
+
+            var xmlHttpReg = null;
+            if (window.ActiveXObject) {//如果是IE
+
+                xmlHttpReg = new ActiveXObject("Microsoft.XMLHTTP");
+
+            } else if (window.XMLHttpRequest) {
+
+                xmlHttpReg = new XMLHttpRequest(); //实例化一个xmlHttpReg
+            }
+
+            //如果实例化成功,就调用open()方法,就开始准备向服务器发送请求
+            if (xmlHttpReg != null) {
+                xmlHttpReg.open("GET", "../GetWorkerName", true);
+                xmlHttpReg.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlHttpReg.onreadystatechange = doResult; //设置回调函数
+                xmlHttpReg.send();
+
+            }
+
+            //回调函数
+            //一旦readyState的值改变,将会调用这个函数,readyState=4表示完成相应
+
+            //设定函数doResult()
+            function doResult() {
+                if (xmlHttpReg.readyState === 4) {//4代表执行完成
+                    if (xmlHttpReg.status === 200) {//200代表执行成功
+                        //将xmlHttpReg.responseText的值赋给ID为resText的元素
+                        //alert(xmlHttpReg.responseText);
+                        $("#user").html(xmlHttpReg.responseText)
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        var xmlHttpReg2 = null;
+        if (window.ActiveXObject) {//如果是IE
+
+            xmlHttpReg2 = new ActiveXObject("Microsoft.XMLHTTP");
+
+        } else if (window.XMLHttpRequest) {
+
+            xmlHttpReg2 = new XMLHttpRequest(); //实例化一个xmlHttpReg
+        }
+
+        //如果实例化成功,就调用open()方法,就开始准备向服务器发送请求
+        if (xmlHttpReg2 != null) {
+            xmlHttpReg2.open("GET", "../GetTagName", true);
+            xmlHttpReg2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlHttpReg2.onreadystatechange = doResult; //设置回调函数
+            xmlHttpReg2.send();
+
+        }
+
+        //回调函数
+        //一旦readyState的值改变,将会调用这个函数,readyState=4表示完成相应
+
+        //设定函数doResult()
+        function doResult() {
+            if (xmlHttpReg2.readyState === 4) {//4代表执行完成
+                if (xmlHttpReg2.status === 200) {//200代表执行成功
+                    //将xmlHttpReg.responseText的值赋给ID为resText的元素
+                    //alert(xmlHttpReg.responseText);
+                    $("#tag_name").html(xmlHttpReg2.responseText)
+                }
+            }
+        }
+    </script>
+
+    <script charset="UTF-8">
+    function code(){
+        var xmlHttpRegc = null;
+        if (window.ActiveXObject) {//如果是IE
+
+            xmlHttpRegc = new ActiveXObject("Microsoft.XMLHTTP");
+
+        } else if (window.XMLHttpRequest) {
+
+            xmlHttpRegc = new XMLHttpRequest(); //实例化一个xmlHttpReg
+        }
+
+        //如果实例化成功,就调用open()方法,就开始准备向服务器发送请求
+        if (xmlHttpRegc != null) {
+            xmlHttpRegc.open("GET", "../FinishProcesses?id="+$("#code").val());
+            xmlHttpRegc.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlHttpRegc.onreadystatechange = doResultc; //设置回调函数
+            xmlHttpRegc.send();
+
+        }
+
+        //回调函数
+        //一旦readyState的值改变,将会调用这个函数,readyState=4表示完成相应
+
+        //设定函数doResult()
+        function doResultc() {
+
+            if (xmlHttpRegc.readyState === 4) {//4代表执行完成
+                if (xmlHttpRegc.status === 200) {//200代表执行成功
+                    //将xmlHttpReg.responseText的值赋给ID为resText的元素
+                    //alert(xmlHttpReg.responseText);
+                    alert(xmlHttpRegc.responseText)
+                    $("#code").val("")
+                }
+            }
+
+
+        }
+    }
+
+    </script>
+
+</head>
+<div class=WordSection1 style='margin: 0;padding: 0;height: 100%'>
+<body lang=ZH-CN link="#0563C1" vlink="#954F72">
+
+
+
+    <p class=MsoNormal align=center style='text-align:center'><span
+            style='font-size:20.0pt'>嘉兴致信流程控制系统<span lang=EN-US></span></span></p>
+
+    <p class=MsoNormal align=center style='text-align:center'><span
+            style='font-size:15.0pt'>当前登录用户：</span><b><span lang=EN-US style='font-size:
+22.0pt;color:red' id="user">暂无</span></b><span lang=EN-US style='font-size:16.0pt'></span></p>
+
+    <p class=MsoNormal align=center style='text-align:center'><span
+            style='font-size:15.0pt'>当前登录工序：</span><b><span lang=EN-US style='font-size:
+22.0pt;color:red' id="tag_name">暂无</span></b></p>
+
+    <p class=MsoNormal align=center style='text-align:center'><b><span lang=EN-US
+                                                                       style='font-size:20.0pt;color:red'></span></b>
+    </p>
+
+    <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US
+                                                                    style='font-size:16.0pt'></span>
+    </p>
+
+    <p class=MsoNormal align=center style='text-align:center'><span
+            style='font-size:15.0pt'>请扫描条码<span lang=EN-US></span></span></p>
+
+    <p class=MsoNormal align=center style='text-align:center'><label>
+        <input style="width:150px; height:50px;" autofocus onblur="{this.focus()}" onkeydown="if (event.keyCode===13){code()}" type="text" name="code" id="code" />
+    </label>
+    </p>
+
+    <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US
+                                                                    style='font-size:16.0pt'></span>
+    </p>
+
+    <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US
+                                                                    style='font-size:16.0pt'></span>
+    </p>
+
+    <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US
+                                                                    style='font-size:12.0pt'><a
+            href="../WorkerExit"><span
+            lang=EN-US><span lang=EN-US style='font-size:10.0pt'>退出登录</span></span></a></span></p>
+</body>
+</div>
+
+
+
+</html>

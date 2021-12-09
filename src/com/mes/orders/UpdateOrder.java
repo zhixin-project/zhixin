@@ -61,13 +61,14 @@ public class UpdateOrder extends HttpServlet {
                 out.print("订单号不存在");
                 return;
             }
-            sql="SELECT `using_stock` FROM `orders` WHERE `id`=?";
+            sql="SELECT `using_stock`,`product_id` FROM `orders` WHERE `id`=?";
             ps = connect.prepareStatement(sql);
             ps.setString(1,request.getParameter("id"));
             ResultSet rs1= ps.executeQuery();
             rs1.next();
             int using_stock =rs1.getInt(1);
-            ReduceStock.reduce(json.getIntValue("product_id"),-using_stock);
+            int product_id =rs1.getInt(2);
+            ReduceStock.reduce(product_id,-using_stock);
 
             sql = "UPDATE orders SET `custom_id`=?, `required_time`=?, `customer`=?, `product_id`=?, `amount`=?, `beizhu`=?,`using_stock`=?, `price`=?,`mbsl`=?,`touliao`=?,`maoban_size`=? WHERE `id`=?;";
             ps = connect.prepareStatement(sql);

@@ -54,7 +54,7 @@ public class GetOrder extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("product", json);
             response.sendRedirect("/manage/update_order.jsp");
-            System.out.println(json);
+//            System.out.println(json);
             // 输出数据
             out = response.getWriter();
 

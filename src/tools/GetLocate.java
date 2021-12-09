@@ -48,7 +48,7 @@ public class GetLocate {
         catch (IOException e){
             e.printStackTrace();
         }
-        System.out.println(json.toString());
+//        System.out.println(json.toString());
         String[] str=new String[6];
         try{
             str[0] = (String)json.get("country");

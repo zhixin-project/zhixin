@@ -1,0 +1,106 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<div class="layuimini-container layuimini-page-anim">
+    <div class="layuimini-main">
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>提前出库</legend>
+        </fieldset>
+
+        <form method="post" class="layui-form" action="/AddOrders">
+            <div class="layui-form-item">
+                <label class="layui-form-label">订单号</label>
+                <div class="layui-input-block">
+                    <input type="text" disabled name="id" id="id" lay-verify="required" autocomplete="off"
+                           placeholder="请输入订单号"
+                           class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">提前出库数量</label>
+                <div class="layui-input-block">
+                    <input type="number" id="amount" name="amount" lay-verify="required|number" lay-reqtext="必填项"
+                           placeholder="请输入" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button type='submit' class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<script charset="UTF-8">
+    var cuur_id = layui.data('curr_id');
+    var id = (cuur_id.id);
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+
+        /**
+         * 初始化表单，要加上，不然刷新部分组件可能会不加载
+         */
+        form.render();
+        var $ = layui.jquery
+        $("#id").val(id);
+
+        //监听提交
+        form.on('submit(demo1)', function (data) {
+            // layer.alert(JSON.stringify(data.field), {
+            //     title: '最终的提交信息'
+            // })
+            var xmlHttpReg = null;
+            if (window.ActiveXObject) {//如果是IE
+
+                xmlHttpReg = new ActiveXObject("Microsoft.XMLHTTP");
+
+            } else if (window.XMLHttpRequest) {
+
+                xmlHttpReg = new XMLHttpRequest(); //实例化一个xmlHttpReg
+            }
+
+            //如果实例化成功,就调用open()方法,就开始准备向服务器发送请求
+            if (xmlHttpReg != null) {
+                xmlHttpReg.open("POST", "SetTQCK?id="+id+"&amount="+$("#amount").val(), true);
+                xmlHttpReg.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlHttpReg.onreadystatechange = doResult; //设置回调函数
+                xmlHttpReg.send();
+
+            }
+
+            //回调函数
+            //一旦readyState的值改变,将会调用这个函数,readyState=4表示完成相应
+
+            //设定函数doResult()
+            function doResult() {
+
+                if (xmlHttpReg.readyState === 4) {//4代表执行完成
+
+
+                    if (xmlHttpReg.status === 200) {//200代表执行成功
+                        //将xmlHttpReg.responseText的值赋给ID为resText的元素
+                        if (xmlHttpReg.responseText.includes("success")) {
+                            alert("操作成功");
+                            parent.reloadData();
+                            layer.closeAll();
+                        } else alert("操作失败！");
+
+                    }
+                }
+
+            }
+
+            return false;
+        });
+
+    });
+</script>

@@ -25,7 +25,7 @@
                 <div class="layui-input-block">
                     <input type="text" name="custom_id" lay-verify="required" autocomplete="off" placeholder="请输入订单号"
                            class="layui-input" value="${sessionScope.product.data[0].custom_id}">
-                </div
+                </div>
             </div>
 
             <div class="layui-form-item">
@@ -52,8 +52,8 @@
                 </div>
 
                 <div class="layui-inline">
-                    <label class="layui-form-label">请选择产品</label>
-                    <div class="layui-input-inline">
+                    <label class="layui-form-label" >请选择产品</label>
+                    <div class="layui-input-inline" >
                         <select name="product_id" id="product_id" lay-verify="required" lay-search=""  class="layui-input" value="${sessionScope.product.data[0].name}">
 
                         </select>
@@ -156,7 +156,10 @@
             type: 'get',
             success: function (data) {
                 $("#product_id").empty();
-                $("#product_id").append(new Option("请选择或搜索产品", ""));
+                // $("#product_id").append(new Option("请选择或搜索产品", ""));
+                <%--console.log(${sessionScope.product.data[0]})--%>
+                let display_kucun = parseInt(${sessionScope.product.data[0].kucun}) + parseInt(${sessionScope.product.data[0].using_stock});
+                $("#product_id").append(new Option("原产品：${sessionScope.product.data[0].name}${sessionScope.product.data[0].standard}${sessionScope.product.data[0].size}库存："+display_kucun,""));
                 console.log(data);//下面会提到这个data是什么值
                 //使用循环遍历，给下拉列表赋值
                 $.each(data.data, function (index, value) {
@@ -171,7 +174,11 @@
                         hcl='';
                     }
                     // if(value.kucun>0){
-                    $('#product_id').append(new Option(value.name + " " + value.standard + " " + value.size + " 库存:" + value.kucun+ hcl + value.houchuli + " ", value.id+','+value.kucun));// 下拉菜单里添加元素
+                    if(parseInt(value.id)==parseInt(${sessionScope.product.data[0].product_id})){
+                        $('#product_id').append(new Option(value.name + " " + value.standard + " " + value.size + " 库存:" + display_kucun +hcl + value.houchuli + " ", value.id+','+value.kucun));// 下拉菜单里添加元素
+                    }else {
+                        $('#product_id').append(new Option(value.name + " " + value.standard + " " + value.size + " 库存:" + value.kucun+ hcl + value.houchuli + " ", value.id+','+value.kucun));// 下拉菜单里添加元素
+                    }
                     // }
                 });
                 layui.form.render("select");//重新渲染 固定写法

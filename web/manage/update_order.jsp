@@ -206,7 +206,8 @@
             }
             var product=data.field.product_id.split(',');//product[0]为product_id,product[1]为product的库存
             console.log('product',product)
-            if(product && product.length>=2 && parseInt(product[1])<parseInt(data.field.reduce)){
+            let display_kucun = parseInt(${sessionScope.product.data[0].kucun}) + parseInt(${sessionScope.product.data[0].using_stock});
+            if(product && product.length>=2 && display_kucun<parseInt(data.field.reduce)){
                 layer.msg('库存不足,请修改使用库存',{icon:2});
                 return false;
             }
